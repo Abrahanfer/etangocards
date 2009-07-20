@@ -1,0 +1,66 @@
+//-*-c++-*-
+/* package.h
+ *
+ * Copyright (C) 2009 Abrahán Fernández Nieto
+ *
+ * Email: <abrahanfer@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+#ifndef PACKAGE_H_
+#define PACKAGE_H_
+
+#include<string>
+#include<map>
+#include"control-system.h"
+#include"card.h"
+
+class Package {
+public:
+  class BadIndexCardsException {};
+  class BeginPackageException {};
+  class EndPackageException {};
+  typedef std::map<unsigned int, Card> Cards;
+  Package(const std::string&);
+  void AddCard();
+  //  void RemoveCard(Card&);
+  void ShowInitCard()
+    throw(BadIndexCardsException);
+  void ShowNextCard() 
+    throw(EndPackageException);
+  void ShowPrevCard()
+    throw(BeginPackageException);
+  const std::string& name() const;
+private:
+  unsigned int num_cards_;
+  unsigned int index_cards_;
+  Cards cards;
+  std::string name_;
+};
+
+inline Package::Package(const std::string& str):
+  num_cards_(0), index_cards_(0), name_(str) {}
+
+inline const std::string& Package::name() const
+{
+  return name_;
+}
+
+/*inline void Package::RemoveCard(Card& c)
+{
+  cards.erase(c);
+}*/
+
+#endif
