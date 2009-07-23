@@ -30,6 +30,8 @@ public:
   Card(void);
   Card(std::string, std::string);
   void show(void) const;
+  const std::string& front () const;
+  const std::string& back () const;
 private:
   std::string front_;
   std::string back_;
@@ -44,4 +46,17 @@ Card::Card(std::string f, std::string b):
   front_(f), back_(b) 
 {}
 
+inline
+const std::string&
+Card::front () const
+{
+  return front_;
+}
+
+inline
+const std::string&
+Card::back () const
+{
+  return back_;
+}
 #endif

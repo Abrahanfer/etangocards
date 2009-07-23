@@ -31,6 +31,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = etangocards$(EXEEXT)
+check_PROGRAMS = etangocards$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -43,10 +44,13 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_etangocards_OBJECTS = main.$(OBJEXT) card.$(OBJEXT) \
-	package.$(OBJEXT) control-system.$(OBJEXT)
+am_etangocards_OBJECTS = etangocards-main.$(OBJEXT) \
+	etangocards-card.$(OBJEXT) etangocards-package.$(OBJEXT) \
+	etangocards-control-system.$(OBJEXT)
 etangocards_OBJECTS = $(am_etangocards_OBJECTS)
 etangocards_LDADD = $(LDADD)
+etangocards_LINK = $(CXXLD) $(etangocards_CXXFLAGS) $(CXXFLAGS) \
+	$(etangocards_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -89,7 +93,10 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBXMLPP_CFLAGS = @LIBXMLPP_CFLAGS@
+LIBXMLPP_LIBS = @LIBXMLPP_LIBS@
 LTLIBOBJS = @LTLIBOBJS@
+MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
 OBJEXT = @OBJEXT@
@@ -100,6 +107,7 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -148,11 +156,13 @@ top_srcdir = @top_srcdir@
 etangocards_SOURCES = main.cpp card.cpp card.h package.cpp \
 	package.h control-system.cpp control-system.h
 
+etangocards_LDFLAGS = @LIBXMLPP_LIBS@
+etangocards_CXXFLAGS = @LIBXMLPP_CFLAGS@
 all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .cpp .o .obj
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -177,9 +187,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-$(top_srcdir)/configure:  $(am__configure_deps)
+$(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
+$(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -204,9 +214,12 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
 etangocards$(EXEEXT): $(etangocards_OBJECTS) $(etangocards_DEPENDENCIES) 
 	@rm -f etangocards$(EXEEXT)
-	$(CXXLINK) $(etangocards_OBJECTS) $(etangocards_LDADD) $(LIBS)
+	$(etangocards_LINK) $(etangocards_OBJECTS) $(etangocards_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -214,10 +227,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/card.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/control-system.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/package.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-card.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-control-system.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-package.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -232,6 +245,62 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+etangocards-main.o: main.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-main.o -MD -MP -MF $(DEPDIR)/etangocards-main.Tpo -c -o etangocards-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-main.Tpo $(DEPDIR)/etangocards-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='main.cpp' object='etangocards-main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+
+etangocards-main.obj: main.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-main.obj -MD -MP -MF $(DEPDIR)/etangocards-main.Tpo -c -o etangocards-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-main.Tpo $(DEPDIR)/etangocards-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='main.cpp' object='etangocards-main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+
+etangocards-card.o: card.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-card.o -MD -MP -MF $(DEPDIR)/etangocards-card.Tpo -c -o etangocards-card.o `test -f 'card.cpp' || echo '$(srcdir)/'`card.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-card.Tpo $(DEPDIR)/etangocards-card.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='card.cpp' object='etangocards-card.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-card.o `test -f 'card.cpp' || echo '$(srcdir)/'`card.cpp
+
+etangocards-card.obj: card.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-card.obj -MD -MP -MF $(DEPDIR)/etangocards-card.Tpo -c -o etangocards-card.obj `if test -f 'card.cpp'; then $(CYGPATH_W) 'card.cpp'; else $(CYGPATH_W) '$(srcdir)/card.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-card.Tpo $(DEPDIR)/etangocards-card.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='card.cpp' object='etangocards-card.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-card.obj `if test -f 'card.cpp'; then $(CYGPATH_W) 'card.cpp'; else $(CYGPATH_W) '$(srcdir)/card.cpp'; fi`
+
+etangocards-package.o: package.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-package.o -MD -MP -MF $(DEPDIR)/etangocards-package.Tpo -c -o etangocards-package.o `test -f 'package.cpp' || echo '$(srcdir)/'`package.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-package.Tpo $(DEPDIR)/etangocards-package.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='package.cpp' object='etangocards-package.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-package.o `test -f 'package.cpp' || echo '$(srcdir)/'`package.cpp
+
+etangocards-package.obj: package.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-package.obj -MD -MP -MF $(DEPDIR)/etangocards-package.Tpo -c -o etangocards-package.obj `if test -f 'package.cpp'; then $(CYGPATH_W) 'package.cpp'; else $(CYGPATH_W) '$(srcdir)/package.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-package.Tpo $(DEPDIR)/etangocards-package.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='package.cpp' object='etangocards-package.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-package.obj `if test -f 'package.cpp'; then $(CYGPATH_W) 'package.cpp'; else $(CYGPATH_W) '$(srcdir)/package.cpp'; fi`
+
+etangocards-control-system.o: control-system.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-control-system.o -MD -MP -MF $(DEPDIR)/etangocards-control-system.Tpo -c -o etangocards-control-system.o `test -f 'control-system.cpp' || echo '$(srcdir)/'`control-system.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-control-system.Tpo $(DEPDIR)/etangocards-control-system.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='control-system.cpp' object='etangocards-control-system.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-control-system.o `test -f 'control-system.cpp' || echo '$(srcdir)/'`control-system.cpp
+
+etangocards-control-system.obj: control-system.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-control-system.obj -MD -MP -MF $(DEPDIR)/etangocards-control-system.Tpo -c -o etangocards-control-system.obj `if test -f 'control-system.cpp'; then $(CYGPATH_W) 'control-system.cpp'; else $(CYGPATH_W) '$(srcdir)/control-system.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-control-system.Tpo $(DEPDIR)/etangocards-control-system.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='control-system.cpp' object='etangocards-control-system.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-control-system.obj `if test -f 'control-system.cpp'; then $(CYGPATH_W) 'control-system.cpp'; else $(CYGPATH_W) '$(srcdir)/control-system.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -307,6 +376,7 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 check: check-am
 all-am: Makefile $(PROGRAMS)
 installdirs:
@@ -339,7 +409,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -397,17 +468,17 @@ uninstall-am: uninstall-binPROGRAMS
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic ctags distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binPROGRAMS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-binPROGRAMS
+	clean-checkPROGRAMS clean-generic ctags distclean \
+	distclean-compile distclean-generic distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binPROGRAMS install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-binPROGRAMS
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

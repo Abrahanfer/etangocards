@@ -55,6 +55,7 @@ public:
   void showPackage (Package&);
   void listPackages (void) const;
   void NewPackage (const std::string&);
+  void serializeSystem (const std::string&);
   ~ControlSystem (void);
 private:
   Packages packages;

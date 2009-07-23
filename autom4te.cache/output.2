@@ -638,8 +638,8 @@ AMTAR
 am__tar
 am__untar
 PKG_CONFIG
-SOMEAPP_CFLAGS
-SOMEAPP_LIBS
+LIBXMLPP_CFLAGS
+LIBXMLPP_LIBS
 CXX
 CXXFLAGS
 LDFLAGS
@@ -663,8 +663,8 @@ ac_subst_files=''
 host_alias
 target_alias
 PKG_CONFIG
-SOMEAPP_CFLAGS
-SOMEAPP_LIBS
+LIBXMLPP_CFLAGS
+LIBXMLPP_LIBS
 CXX
 CXXFLAGS
 LDFLAGS
@@ -1251,10 +1251,10 @@ Optional Features:
 
 Some influential environment variables:
   PKG_CONFIG  path to pkg-config utility
-  SOMEAPP_CFLAGS 
-              C compiler flags for SOMEAPP, overriding pkg-config
-  SOMEAPP_LIBS 
-              linker flags for SOMEAPP, overriding pkg-config
+  LIBXMLPP_CFLAGS 
+              C compiler flags for LIBXMLPP, overriding pkg-config
+  LIBXMLPP_LIBS 
+              linker flags for LIBXMLPP, overriding pkg-config
   CXX         C++ compiler command
   CXXFLAGS    C++ compiler flags
   LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
@@ -2299,12 +2299,12 @@ echo "${ECHO_T}no" >&6; }
 fi
 
 pkg_failed=no
-{ echo "$as_me:$LINENO: checking for SOMEAPP" >&5
-echo $ECHO_N "checking for SOMEAPP... $ECHO_C" >&6; }
+{ echo "$as_me:$LINENO: checking for LIBXMLPP" >&5
+echo $ECHO_N "checking for LIBXMLPP... $ECHO_C" >&6; }
 
 if test -n "$PKG_CONFIG"; then
-    if test -n "$SOMEAPP_CFLAGS"; then
-        pkg_cv_SOMEAPP_CFLAGS="$SOMEAPP_CFLAGS"
+    if test -n "$LIBXMLPP_CFLAGS"; then
+        pkg_cv_LIBXMLPP_CFLAGS="$LIBXMLPP_CFLAGS"
     else
         if test -n "$PKG_CONFIG" && \
     { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libxml++-2.6 >= 2.10.0\"") >&5
@@ -2312,7 +2312,7 @@ if test -n "$PKG_CONFIG"; then
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_SOMEAPP_CFLAGS=`$PKG_CONFIG --cflags "libxml++-2.6 >= 2.10.0" 2>/dev/null`
+  pkg_cv_LIBXMLPP_CFLAGS=`$PKG_CONFIG --cflags "libxml++-2.6 >= 2.10.0" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -2321,8 +2321,8 @@ else
 	pkg_failed=untried
 fi
 if test -n "$PKG_CONFIG"; then
-    if test -n "$SOMEAPP_LIBS"; then
-        pkg_cv_SOMEAPP_LIBS="$SOMEAPP_LIBS"
+    if test -n "$LIBXMLPP_LIBS"; then
+        pkg_cv_LIBXMLPP_LIBS="$LIBXMLPP_LIBS"
     else
         if test -n "$PKG_CONFIG" && \
     { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libxml++-2.6 >= 2.10.0\"") >&5
@@ -2330,7 +2330,7 @@ if test -n "$PKG_CONFIG"; then
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_SOMEAPP_LIBS=`$PKG_CONFIG --libs "libxml++-2.6 >= 2.10.0" 2>/dev/null`
+  pkg_cv_LIBXMLPP_LIBS=`$PKG_CONFIG --libs "libxml++-2.6 >= 2.10.0" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -2349,33 +2349,33 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        SOMEAPP_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libxml++-2.6 >= 2.10.0"`
+	        LIBXMLPP_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libxml++-2.6 >= 2.10.0"`
         else 
-	        SOMEAPP_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libxml++-2.6 >= 2.10.0"`
+	        LIBXMLPP_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libxml++-2.6 >= 2.10.0"`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$SOMEAPP_PKG_ERRORS" >&5
+	echo "$LIBXMLPP_PKG_ERRORS" >&5
 
 	{ { echo "$as_me:$LINENO: error: Package requirements (libxml++-2.6 >= 2.10.0) were not met:
 
-$SOMEAPP_PKG_ERRORS
+$LIBXMLPP_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables SOMEAPP_CFLAGS
-and SOMEAPP_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBXMLPP_CFLAGS
+and LIBXMLPP_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 " >&5
 echo "$as_me: error: Package requirements (libxml++-2.6 >= 2.10.0) were not met:
 
-$SOMEAPP_PKG_ERRORS
+$LIBXMLPP_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables SOMEAPP_CFLAGS
-and SOMEAPP_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBXMLPP_CFLAGS
+and LIBXMLPP_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 " >&2;}
    { (exit 1); exit 1; }; }
@@ -2384,8 +2384,8 @@ elif test $pkg_failed = untried; then
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables SOMEAPP_CFLAGS
-and SOMEAPP_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBXMLPP_CFLAGS
+and LIBXMLPP_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
@@ -2394,21 +2394,23 @@ echo "$as_me: error: The pkg-config script could not be found or is too old.  Ma
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables SOMEAPP_CFLAGS
-and SOMEAPP_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBXMLPP_CFLAGS
+and LIBXMLPP_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details." >&2;}
    { (exit 1); exit 1; }; }
 else
-	SOMEAPP_CFLAGS=$pkg_cv_SOMEAPP_CFLAGS
-	SOMEAPP_LIBS=$pkg_cv_SOMEAPP_LIBS
+	LIBXMLPP_CFLAGS=$pkg_cv_LIBXMLPP_CFLAGS
+	LIBXMLPP_LIBS=$pkg_cv_LIBXMLPP_LIBS
         { echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6; }
 	:
 fi
+LIBXMLPP_CFLAGS=`pkg-config --cflags libxml++-2.6`
 
+LIBXMLPP_LIBS=`pkg-config --libs libxml++-2.6`
 
 
 ac_ext=cpp
@@ -3895,8 +3897,8 @@ AMTAR!$AMTAR$ac_delim
 am__tar!$am__tar$ac_delim
 am__untar!$am__untar$ac_delim
 PKG_CONFIG!$PKG_CONFIG$ac_delim
-SOMEAPP_CFLAGS!$SOMEAPP_CFLAGS$ac_delim
-SOMEAPP_LIBS!$SOMEAPP_LIBS$ac_delim
+LIBXMLPP_CFLAGS!$LIBXMLPP_CFLAGS$ac_delim
+LIBXMLPP_LIBS!$LIBXMLPP_LIBS$ac_delim
 CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
 LDFLAGS!$LDFLAGS$ac_delim

@@ -19,12 +19,16 @@
  *
  */
 #include<iostream>
+#include<sstream>
 #include<map>
 #include<string>
+#include<libxml++/libxml++.h>
 #include"package.h"
 #include"card.h"
 
-void Package::AddCard()
+void 
+Package::AddCard() 
+  throw ()
 {
   char *front, *back;
   front = new char(100);
@@ -48,7 +52,8 @@ void Package::AddCard()
   delete back;
 }
 
-void Package::ShowInitCard()
+void 
+Package::ShowInitCard()
   throw(BadIndexCardsException)
 {
   if (index_cards_){
@@ -61,7 +66,8 @@ void Package::ShowInitCard()
     AddCard();
 }
 
-void Package::ShowNextCard()
+void 
+Package::ShowNextCard()
   throw(EndPackageException)
 {
   Cards::iterator pos = cards.find(index_cards_ + 1);
@@ -73,7 +79,8 @@ void Package::ShowNextCard()
 }
 
 
-void Package::ShowPrevCard() 
+void 
+Package::ShowPrevCard() 
   throw(BeginPackageException)
 {
   if(index_cards_ > 0){
@@ -82,4 +89,29 @@ void Package::ShowPrevCard()
     pos->second.show();
   }else
     throw BeginPackageException();
+}
+
+void 
+Package::serialization (const std::string& pathname) 
+  throw ()
+{
+  xmlpp::Document document;
+  std::ostringstream o1, o2;
+  o1 << num_cards_;
+  o2 << index_cards_;
+  xmlpp::Element* nodeRoot = document.create_root_node ("Package");
+  nodeRoot->set_attribute ("name", name_);
+  nodeRoot->set_attribute ("num_cards", o1.str ());
+  nodeRoot->set_attribute ("index_cards", o2.str ());
+  Cards::const_iterator i;
+  for (i = cards.begin (); i != cards.end (); ++i)
+    {
+      xmlpp::Element* nodeChild = nodeRoot->add_child ("Card");
+      nodeChild->set_attribute ("front", i->second.front ());
+      nodeChild->set_attribute ("back", i->second.back ());
+    }
+  std::ostringstream o3;
+  o3 << pathname << name_ << ".xml";
+
+  document.write_to_file_formatted (o3.str ());
 }

@@ -126,6 +126,17 @@ ControlSystem::NewPackage (const std::string& str)
   associate (str,pkg);
 }
 
+void
+ControlSystem::serializeSystem (const std::string& pathname)
+{
+  Packages::const_iterator i;
+
+  for (i = packages.begin (); i != packages.end (); ++i)
+    {
+      i->second->serialization (pathname);
+    }
+}
+
 ControlSystem::~ControlSystem ()
 {
   Packages::iterator pos;
