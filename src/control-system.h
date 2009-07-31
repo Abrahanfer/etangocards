@@ -57,6 +57,7 @@ public:
   void NewPackage (const std::string&);
   void serializeSystem (const std::string&);
   ~ControlSystem (void);
+  static const char* path;
 private:
   Packages packages;
 };

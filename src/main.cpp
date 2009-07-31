@@ -36,6 +36,19 @@ int main() {
     cerr << "ERROR: No memory." << endl;
     exit(1); 
   }
+  /* -------------------------------------------
+     Test case.
+     -------------------------------------------
+     ***
+     Funcionality: Load of packages in .xml
+     Description: Load 3 packages, test1, test2, and test3, 
+     with 0, 1, and 3 cards.
+     ***
+   */
+  cs.LoadPackage ("test1");
+  cs.LoadPackage ("test2");
+  cs.LoadPackage ("test3");
+  //---------------------------------------------
   while(go){
     cout << "Choose an option:\n"
 	 << "1. New  package.\n"
@@ -63,7 +76,11 @@ int main() {
 	break;
       case '4':
 	go = false;
-	cout << "See you the next time...;-)" << endl;
+	//cout << "Introduce the path of packages be saved:\n$ ";
+	//cin.getline (name, 100);
+	cs.serializeSystem ("/home/abrahan/.etangocards");
+	cout << "System serialiced.\n"
+	     << "See you the next time...;-)" << endl;
 	break;
       default:
 	cout << "Option incorrect" << endl;
@@ -78,6 +95,6 @@ int main() {
 	   << " not exist." << endl;
     }
   }
-  delete name;
+  //delete name;
 
 }

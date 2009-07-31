@@ -32,16 +32,19 @@ public:
   class BadIndexCardsException {};
   class BeginPackageException {};
   class EndPackageException {};
+  class NotFoundPackageException {};
   typedef std::map<unsigned int, Card> Cards;
-  Package(const std::string&) throw ();
-  void AddCard() throw ();
-  void ShowInitCard()
-    throw(BadIndexCardsException);
-  void ShowNextCard() 
-    throw(EndPackageException);
-  void ShowPrevCard()
-    throw(BeginPackageException);
-  const std::string& name() const throw ();
+  Package (const std::string&) throw ();
+  Package (const std::string&, bool) 
+    throw (NotFoundPackageException);
+  void addCard () throw ();
+  void showInitCard ()
+    throw (BadIndexCardsException);
+  void showNextCard () 
+    throw (EndPackageException);
+  void showPrevCard ()
+    throw (BeginPackageException);
+  const std::string& name () const throw ();
   void serialization (const std::string&) throw ();
 private:
   unsigned int num_cards_;
@@ -50,7 +53,7 @@ private:
   std::string name_;
 };
 
-inline Package::Package(const std::string& str) throw ():
+inline Package::Package (const std::string& str) throw ():
   num_cards_(0), index_cards_(0), name_(str) {}
 
 inline const std::string& Package::name() const throw ()

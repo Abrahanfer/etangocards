@@ -150,6 +150,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 sysconfdir = @sysconfdir@
+target_abbrev = @target_abbrev@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
@@ -158,6 +159,7 @@ etangocards_SOURCES = main.cpp card.cpp card.h package.cpp \
 
 etangocards_LDFLAGS = @LIBXMLPP_LIBS@
 etangocards_CXXFLAGS = @LIBXMLPP_CFLAGS@
+EXTRA_DIST = testsuite/etangocards.test/etangocards.exp
 all: all-am
 
 .SUFFIXES:

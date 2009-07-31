@@ -26,8 +26,21 @@
 #include"package.h"
 #include"card.h"
 
+Package::Package (const std::string& pathname, bool isXml)
+  throw (NotFoundPackageException)
+{
+  xmlpp::DomParser parser;
+  parser.set_validate ();
+  parser.parse_file (pathname);
+  if (parser)
+    {
+      const xmlpp::Element* root = 
+	parser.get_document ()->get_root_node ();
+    }
+}
+
 void 
-Package::AddCard() 
+Package::addCard() 
   throw ()
 {
   char *front, *back;
@@ -53,7 +66,7 @@ Package::AddCard()
 }
 
 void 
-Package::ShowInitCard()
+Package::showInitCard()
   throw(BadIndexCardsException)
 {
   if (index_cards_){
@@ -62,12 +75,12 @@ Package::ShowInitCard()
       pos->second.show();
     else
       throw BadIndexCardsException();
-  }else
-    AddCard();
+  }//else
+  //addCard();
 }
 
 void 
-Package::ShowNextCard()
+Package::showNextCard()
   throw(EndPackageException)
 {
   Cards::iterator pos = cards.find(index_cards_ + 1);
@@ -80,7 +93,7 @@ Package::ShowNextCard()
 
 
 void 
-Package::ShowPrevCard() 
+Package::showPrevCard() 
   throw(BeginPackageException)
 {
   if(index_cards_ > 0){
@@ -111,7 +124,7 @@ Package::serialization (const std::string& pathname)
       nodeChild->set_attribute ("back", i->second.back ());
     }
   std::ostringstream o3;
-  o3 << pathname << name_ << ".xml";
+  o3 << pathname << "/" <<name_ << ".xml";
 
   document.write_to_file_formatted (o3.str ());
 }

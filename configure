@@ -640,6 +640,7 @@ am__untar
 PKG_CONFIG
 LIBXMLPP_CFLAGS
 LIBXMLPP_LIBS
+target_abbrev
 CXX
 CXXFLAGS
 LDFLAGS
@@ -2418,6 +2419,9 @@ LIBXMLPP_CFLAGS=`pkg-config --cflags libxml++-2.6`
 LIBXMLPP_LIBS=`pkg-config --libs libxml++-2.6`
 
 
+target_abbrev=unix
+
+
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
 ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -3935,6 +3939,7 @@ am__untar!$am__untar$ac_delim
 PKG_CONFIG!$PKG_CONFIG$ac_delim
 LIBXMLPP_CFLAGS!$LIBXMLPP_CFLAGS$ac_delim
 LIBXMLPP_LIBS!$LIBXMLPP_LIBS$ac_delim
+target_abbrev!$target_abbrev$ac_delim
 CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
 LDFLAGS!$LDFLAGS$ac_delim
@@ -3958,7 +3963,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 83; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 84; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

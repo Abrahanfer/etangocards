@@ -154,11 +154,15 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 sysconfdir = @sysconfdir@
+target_abbrev = @target_abbrev@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = dejagnu
 SUBDIRS = src
+RUNTESTFLAGS = --tool src/etangocards ETANGOCARDS=`pwd`/src/etangocards \
+	--srcdir ./src/testsuite
+
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

@@ -25,6 +25,8 @@
 #include"control-system.h"
 #include"package.h"
 
+ControlSystem::path = "/home/abrahan/.etangocards";
+
 void 
 ControlSystem::associate (const std::string& str, Package* pkg)
   throw (RepeatPackageException)
@@ -35,7 +37,7 @@ ControlSystem::associate (const std::string& str, Package* pkg)
     throw RepeatPackageException (str);
 }
 
-const Package& 
+/*const Package& 
 ControlSystem::LoadPackage (const std::string& str) const
   throw (NoPackagesException, NoPackageFoundException)
 {
@@ -49,12 +51,22 @@ ControlSystem::LoadPackage (const std::string& str) const
     else
       return *(pos->second);
   }
+  }*/
+
+void 
+ControlSystem::LoadPackage (const std::string& str) 
+  throw (Package::NoFoundPackageException,
+	 RepeatPackageException)
+{
+  Package pkg (path + str + ".xml", true);
+  associate (str, &pkg);
 }
 
-Package& 
-ControlSystem::LoadPackage (const std::string& str) 
-  throw (NoPackagesException, NoPackageFoundException)
+void
+ControlSystem::showPackage (const std::string& str)
 {
+  Package pkg;
+
   if (packages.empty ())
     throw NoPackagesException ();
   else{
@@ -63,17 +75,12 @@ ControlSystem::LoadPackage (const std::string& str)
 	== packages.end ())
       throw NoPackageFoundException (str);
     else
-      return *(pos->second);
+      pkg = *(pos->second);
   }
-}
-
-void
-ControlSystem::showPackage (Package& pkg)
-{
   bool go = true;
   char *option = new char (100);
   try{
-    pkg.ShowInitCard ();
+    pkg.showInitCard ();
     while (go){
       std::cout << "Choose an option:\n" 
 		<< "(a)add card, (n)next card, (p)previous card, "
@@ -83,13 +90,13 @@ ControlSystem::showPackage (Package& pkg)
       try{
 	switch (option[0]){
 	case 'a':
-	  pkg.AddCard ();
+	  pkg.addCard ();
 	  break;
 	case 'n':
-	  pkg.ShowNextCard ();
+	  pkg.showNextCard ();
 	  break;
 	case 'p':
-	  pkg.ShowPrevCard ();
+	  pkg.showPrevCard ();
 	  break;
 	case 'e':
 	  std::cout << "Exiting..." << std::endl;
