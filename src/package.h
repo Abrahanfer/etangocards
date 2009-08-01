@@ -32,11 +32,12 @@ public:
   class BadIndexCardsException {};
   class BeginPackageException {};
   class EndPackageException {};
-  class NotFoundPackageException {};
+  class NotFoundPackageException {};//todo package's name
+  class BadPackageFileException {};//todo package's name
   typedef std::map<unsigned int, Card> Cards;
   Package (const std::string&) throw ();
   Package (const std::string&, bool) 
-    throw (NotFoundPackageException);
+    throw (NotFoundPackageException, BadPackageFileException);
   void addCard () throw ();
   void showInitCard ()
     throw (BadIndexCardsException);

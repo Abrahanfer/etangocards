@@ -44,17 +44,57 @@ int main() {
      Description: Load 3 packages, test1, test2, and test3, 
      with 0, 1, and 3 cards.
      ***
-   */
-  cs.LoadPackage ("test1");
-  cs.LoadPackage ("test2");
-  cs.LoadPackage ("test3");
+     */
+  try
+    {
+      cs.LoadPackage ("test1");
+    }
+  catch (Package::NotFoundPackageException nfpe)
+    {
+      cerr << "Some packages do not exist."
+	   << endl;
+    }
+  catch (Package::BadPackageFileException bpfe)
+    {
+      cerr << "Some file are corrupted."
+	   << endl;
+    }
+  try
+    {    
+      cs.LoadPackage ("test2");
+    }
+  catch (Package::NotFoundPackageException nfpe)
+    {
+      cerr << "Some packages do not exist."
+	   << endl;
+    }
+  catch (Package::BadPackageFileException bpfe)
+    {
+      cerr << "Some file are corrupted."
+	   << endl;
+    }
+  try 
+    {
+    cs.LoadPackage ("test3");
+    }
+  catch (Package::NotFoundPackageException nfpe)
+    {
+      cerr << "Some packages do not exist."
+	   << endl;
+    }
+  catch (Package::BadPackageFileException bpfe)
+    {
+      cerr << "Some file are corrupted."
+	   << endl;
+    }
   //---------------------------------------------
   while(go){
     cout << "Choose an option:\n"
 	 << "1. New  package.\n"
-	 << "2. Load package.\n"
-	 << "3. List packages.\n"
-	 << "4. Exit.\n"
+	 << "2. Show package.\n"
+	 << "3. Load package.\n"
+	 << "4. List packages.\n"
+	 << "5. Exit.\n"
 	 << "$ ";
 
     cin.get(option);
@@ -67,14 +107,18 @@ int main() {
 	cs.NewPackage(name);
 	break;
       case '2':
-	cout << "Entry packages's name to load:\n$ ";
+	cout << "Entry packages's name to show:\n$ ";
 	cin.getline(name,100);
-	cs.showPackage(cs.LoadPackage(name));
+	cs.showPackage(name);
 	break;
       case '3':
+	cout << "Entry packages's name to load:\n$ ";
+	cin.getline(name,100);
+	cs.LoadPackage(name);
+      case '4':
 	cs.listPackages();
 	break;
-      case '4':
+      case '5':
 	go = false;
 	//cout << "Introduce the path of packages be saved:\n$ ";
 	//cin.getline (name, 100);

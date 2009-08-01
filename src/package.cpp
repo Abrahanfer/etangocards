@@ -27,15 +27,46 @@
 #include"card.h"
 
 Package::Package (const std::string& pathname, bool isXml)
-  throw (NotFoundPackageException)
+  throw (NotFoundPackageException, BadPackageFileException)
 {
+  unsigned int n_cards = 0;
   xmlpp::DomParser parser;
-  parser.set_validate ();
-  parser.parse_file (pathname);
+  try
+    {
+      parser.parse_file (pathname);
+    }
+  catch (xmlpp::internal_error e)
+    {
+      throw NotFoundPackageException ();
+    }
   if (parser)
     {
       const xmlpp::Element* root = 
 	parser.get_document ()->get_root_node ();
+      name_ = root->get_attribute_value ("name");
+      std::string num_cards = 
+	root->get_attribute_value ("num_cards");
+      std::istringstream iss_num_cards(num_cards);
+      iss_num_cards >> num_cards_;
+      std::string index_cards = 
+	root->get_attribute_value ("index_cards");
+      std::istringstream iss_index_cards(index_cards);
+      iss_index_cards >> index_cards_;
+      xmlpp::Node::NodeList nodelist = root->get_children (); 
+      xmlpp::Node::NodeList::const_iterator i;
+      for(i = nodelist.begin (); i != nodelist.end (); ++i)
+	{
+	  xmlpp::Element *node = dynamic_cast<xmlpp::Element*>(*i);
+	  if(node)
+	    {
+	      std::string f(node->get_attribute_value ("front"));
+	      std::string b(node->get_attribute_value ("back"));
+	      cards.insert(std::make_pair(++n_cards, Card(f, b)));
+	    }
+	}
+      if(n_cards != num_cards_ || 
+	 (index_cards_ > num_cards_ || index_cards_ < 1))
+	throw BadPackageFileException ();
     }
 }
 
@@ -96,7 +127,7 @@ void
 Package::showPrevCard() 
   throw(BeginPackageException)
 {
-  if(index_cards_ > 0){
+  if(index_cards_ > 1){
     index_cards_--;
     Cards::const_iterator pos = cards.find(index_cards_);
     pos->second.show();

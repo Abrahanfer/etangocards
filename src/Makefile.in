@@ -158,7 +158,7 @@ etangocards_SOURCES = main.cpp card.cpp card.h package.cpp \
 	package.h control-system.cpp control-system.h
 
 etangocards_LDFLAGS = @LIBXMLPP_LIBS@
-etangocards_CXXFLAGS = @LIBXMLPP_CFLAGS@
+etangocards_CXXFLAGS = @LIBXMLPP_CFLAGS@ -Wall -pedantic
 EXTRA_DIST = testsuite/etangocards.test/etangocards.exp
 all: all-am
 

@@ -25,7 +25,7 @@
 #include<string>
 #include<map>
 
-class Package; //anticipate declaration
+class Package;
 
 class ControlSystem {
 public:
@@ -48,16 +48,15 @@ public:
   void associate (const std::string&, Package*) 
     throw (RepeatPackageException);
   const Packages& associate (void) const;
-  const Package& LoadPackage (const std::string&) const
-    throw (NoPackagesException, NoPackageFoundException);
-  Package& LoadPackage (const std::string&)
-    throw (NoPackagesException, NoPackageFoundException);
-  void showPackage (Package&);
+  //const Package& LoadPackage (const std::string&) const
+  //throw (NoPackagesException, NoPackageFoundException);
+  void LoadPackage (const std::string&);
+  void showPackage (const std::string&);
   void listPackages (void) const;
   void NewPackage (const std::string&);
   void serializeSystem (const std::string&);
   ~ControlSystem (void);
-  static const char* path;
+  static std::string path;
 private:
   Packages packages;
 };
