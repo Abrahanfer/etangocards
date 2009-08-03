@@ -1,6 +1,6 @@
 #AUTOMAKE_OPTIONS = dejagnu
 
-SUBDIRS = src doc
+SUBDIRS = src
 
 
 
