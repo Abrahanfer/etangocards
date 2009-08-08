@@ -22,14 +22,17 @@
 #include<string>
 #include"card.h"
 
-void 
+const Glib::ustring&
 Card::show (void) const
 {
-  char intro;
-  std::cout << "front:\n\t" << front_ << std::endl;
-  std::cout << "Press return..." << std::endl;
-  do{
-    std::cin.get (intro);
-  }while (intro != '\n');
-  std::cout << "back:\n\t" << back_ << std::endl;
+  if (is_front_)
+    {
+      is_front_ = false;
+      return back ();
+    }
+  else
+    {
+      is_front_ = true;
+      return front ();
+    }
 }

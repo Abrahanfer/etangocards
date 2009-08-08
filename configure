@@ -578,6 +578,7 @@ PACKAGE_VERSION='0.0.1'
 PACKAGE_STRING='etangocards 0.0.1'
 PACKAGE_BUGREPORT='abrahanfer@gmail.com'
 
+ac_unique_file="src"
 ac_subst_vars='SHELL
 PATH_SEPARATOR
 PACKAGE_NAME
@@ -640,7 +641,8 @@ am__untar
 PKG_CONFIG
 LIBXMLPP_CFLAGS
 LIBXMLPP_LIBS
-target_abbrev
+GTKMM_CFLAGS
+GTKMM_LIBS
 CXX
 CXXFLAGS
 LDFLAGS
@@ -669,6 +671,8 @@ target_alias
 PKG_CONFIG
 LIBXMLPP_CFLAGS
 LIBXMLPP_LIBS
+GTKMM_CFLAGS
+GTKMM_LIBS
 CXX
 CXXFLAGS
 LDFLAGS
@@ -1261,6 +1265,9 @@ Some influential environment variables:
               C compiler flags for LIBXMLPP, overriding pkg-config
   LIBXMLPP_LIBS
               linker flags for LIBXMLPP, overriding pkg-config
+  GTKMM_CFLAGS
+              C compiler flags for GTKMM, overriding pkg-config
+  GTKMM_LIBS  linker flags for GTKMM, overriding pkg-config
   CXX         C++ compiler command
   CXXFLAGS    C++ compiler flags
   LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
@@ -2419,7 +2426,120 @@ LIBXMLPP_CFLAGS=`pkg-config --cflags libxml++-2.6`
 LIBXMLPP_LIBS=`pkg-config --libs libxml++-2.6`
 
 
-target_abbrev=unix
+pkg_failed=no
+{ echo "$as_me:$LINENO: checking for GTKMM" >&5
+echo $ECHO_N "checking for GTKMM... $ECHO_C" >&6; }
+
+if test -n "$PKG_CONFIG"; then
+    if test -n "$GTKMM_CFLAGS"; then
+        pkg_cv_GTKMM_CFLAGS="$GTKMM_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtkmm-2.4 >= 2.8.0\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtkmm-2.4 >= 2.8.0") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_GTKMM_CFLAGS=`$PKG_CONFIG --cflags "gtkmm-2.4 >= 2.8.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$GTKMM_LIBS"; then
+        pkg_cv_GTKMM_LIBS="$GTKMM_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtkmm-2.4 >= 2.8.0\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtkmm-2.4 >= 2.8.0") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_GTKMM_LIBS=`$PKG_CONFIG --libs "gtkmm-2.4 >= 2.8.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GTKMM_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "gtkmm-2.4 >= 2.8.0"`
+        else
+	        GTKMM_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "gtkmm-2.4 >= 2.8.0"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GTKMM_PKG_ERRORS" >&5
+
+	{ { echo "$as_me:$LINENO: error: Package requirements (gtkmm-2.4 >= 2.8.0) were not met:
+
+$GTKMM_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables GTKMM_CFLAGS
+and GTKMM_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&5
+echo "$as_me: error: Package requirements (gtkmm-2.4 >= 2.8.0) were not met:
+
+$GTKMM_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables GTKMM_CFLAGS
+and GTKMM_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&2;}
+   { (exit 1); exit 1; }; }
+elif test $pkg_failed = untried; then
+	{ { echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables GTKMM_CFLAGS
+and GTKMM_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details." >&5
+echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables GTKMM_CFLAGS
+and GTKMM_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details." >&2;}
+   { (exit 1); exit 1; }; }
+else
+	GTKMM_CFLAGS=$pkg_cv_GTKMM_CFLAGS
+	GTKMM_LIBS=$pkg_cv_GTKMM_LIBS
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	:
+fi
+GTKMM_CFLAGS=`pkg-config --cflags gtkmm-2.4`
+
+GTKMM_LIBS=`pkg-config --libs gtkmm-2.4`
+
 
 
 ac_ext=cpp
@@ -3202,6 +3322,7 @@ fi
 ac_config_headers="$ac_config_headers config.h"
 
 
+
 { echo "$as_me:$LINENO: checking whether to enable maintainer-specific portions of Makefiles" >&5
 echo $ECHO_N "checking whether to enable maintainer-specific portions of Makefiles... $ECHO_C" >&6; }
     # Check whether --enable-maintainer-mode was given.
@@ -3940,7 +4061,8 @@ am__untar!$am__untar$ac_delim
 PKG_CONFIG!$PKG_CONFIG$ac_delim
 LIBXMLPP_CFLAGS!$LIBXMLPP_CFLAGS$ac_delim
 LIBXMLPP_LIBS!$LIBXMLPP_LIBS$ac_delim
-target_abbrev!$target_abbrev$ac_delim
+GTKMM_CFLAGS!$GTKMM_CFLAGS$ac_delim
+GTKMM_LIBS!$GTKMM_LIBS$ac_delim
 CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
 LDFLAGS!$LDFLAGS$ac_delim
@@ -3964,7 +4086,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 84; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 85; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

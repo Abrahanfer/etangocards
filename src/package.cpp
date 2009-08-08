@@ -37,7 +37,7 @@ Package::Package (const std::string& pathname, bool isXml)
     }
   catch (xmlpp::internal_error e)
     {
-      throw NotFoundPackageException ();
+      throw NotFoundPackageException (pathname);
     }
   if (parser)
     {
@@ -66,72 +66,63 @@ Package::Package (const std::string& pathname, bool isXml)
 	}
       if(n_cards != num_cards_ || 
 	 (index_cards_ > num_cards_ || index_cards_ < 1))
-	throw BadPackageFileException ();
+	throw BadPackageFileException (name_);
     }
 }
 
 void 
-Package::addCard() 
-  throw ()
+Package::addCard(const Glib::ustring& front, const Glib::ustring& back) 
+  throw ()//TODO: Exception bad insert, & position insert
 {
-  char *front, *back;
-  front = new char(100);
-  back = new char(100);
-
-  std::cout << "Introduce the card's front:\n"
-	    << "$ ";
-  std::cin.getline(front,100);
-
-  std::cout << "Introduce the card's back:\n"
-	    << "$ ";
-  std::cin.getline(back,100);
-  std::string f(front), b(back);
-  cards.insert(std::make_pair(++num_cards_, Card(f, b)));
-  std::cout << "Showing new card:" << std::endl; 
-  index_cards_ = num_cards_; 
-  Cards::const_iterator pos = cards.find(num_cards_);
-  if(pos != cards.end())
-    (pos->second).show();
-  delete front;
-  delete back;
+  cards.insert(std::make_pair(++num_cards_, Card(front, back)));  
+  Cards::iterator pos = cards.find(num_cards_);
+  /*if(pos != cards.end())
+    (pos->second).show ();*/
 }
 
-void 
+const Card& 
 Package::showInitCard()
   throw(BadIndexCardsException)
 {
-  if (index_cards_){
-    Cards::iterator pos = cards.find(index_cards_);
-    if (pos != cards.end())
-      pos->second.show();
-    else
-      throw BadIndexCardsException();
-  }//else
-  //addCard();
+  if (index_cards_)
+    {
+      Cards::iterator pos = cards.find(index_cards_);
+      if (pos != cards.end())
+	return pos->second;
+      else
+	throw BadIndexCardsException ();
+    }
+  else
+    throw BadIndexCardsException ();
+
 }
 
-void 
+const Card&
 Package::showNextCard()
   throw(EndPackageException)
 {
   Cards::iterator pos = cards.find(index_cards_ + 1);
-  if (pos != cards.end()){
-    index_cards_++;
-    pos->second.show();
-  }else
+  if (pos != cards.end())
+    {
+      index_cards_++;
+      return pos->second;
+    }
+  else
     throw EndPackageException();
 }
 
 
-void 
+const Card&
 Package::showPrevCard() 
   throw(BeginPackageException)
 {
-  if(index_cards_ > 1){
-    index_cards_--;
-    Cards::const_iterator pos = cards.find(index_cards_);
-    pos->second.show();
-  }else
+  if(index_cards_ > 1)
+    {
+      index_cards_--;
+      Cards::const_iterator pos = cards.find(index_cards_);
+      return pos->second;
+    }
+  else
     throw BeginPackageException();
 }
 

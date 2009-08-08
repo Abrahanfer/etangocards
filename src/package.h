@@ -22,7 +22,7 @@
 #ifndef PACKAGE_H_
 #define PACKAGE_H_
 
-#include<string>
+#include<glibmm.h>
 #include<map>
 #include"control-system.h"
 #include"card.h"
@@ -32,34 +32,93 @@ public:
   class BadIndexCardsException {};
   class BeginPackageException {};
   class EndPackageException {};
-  class NotFoundPackageException {};//todo package's name
-  class BadPackageFileException {};//todo package's name
+  class NotFoundPackageException {
+  public:
+    NotFoundPackageException (const Glib::ustring&);
+    const Glib::ustring& what (void) const;
+  private:
+    Glib::ustring pkg_name_;
+  };
+  class BadPackageFileException {
+  public:
+    BadPackageFileException (const Glib::ustring&);
+    const Glib::ustring& what (void) const;
+  private:
+    Glib::ustring pkg_name_;
+  };
   typedef std::map<unsigned int, Card> Cards;
   Package (const std::string&) throw ();
   Package (const std::string&, bool) 
     throw (NotFoundPackageException, BadPackageFileException);
-  void addCard () throw ();
-  void showInitCard ()
+  void addCard (const Glib::ustring&, const Glib::ustring&) 
+    throw ();
+  const Card& showInitCard ()
     throw (BadIndexCardsException);
-  void showNextCard () 
+  const Card& showNextCard () 
     throw (EndPackageException);
-  void showPrevCard ()
+  const Card& showPrevCard ()
     throw (BeginPackageException);
-  const std::string& name () const throw ();
+  const Card& showThisCard () const throw ();
+  const Glib::ustring& name () const throw ();
+  unsigned int num_cards () const throw ();
+  unsigned int index_cards () const throw ();
   void serialization (const std::string&) throw ();
 private:
   unsigned int num_cards_;
   unsigned int index_cards_;
   Cards cards;
-  std::string name_;
+  Glib::ustring name_;
 };
+
+inline
+Package::NotFoundPackageException::NotFoundPackageException 
+(const Glib::ustring& pkg_name): 
+  pkg_name_(pkg_name)
+{}
+
+inline const Glib::ustring&
+Package::NotFoundPackageException::what () const
+{
+  return pkg_name_;
+}
+
+inline
+Package::BadPackageFileException::BadPackageFileException 
+(const Glib::ustring& pkg_name):
+  pkg_name_ (pkg_name)
+{}
+
+inline const Glib::ustring&
+Package::BadPackageFileException::what () const
+{
+  return pkg_name_;
+}
 
 inline Package::Package (const std::string& str) throw ():
   num_cards_(0), index_cards_(0), name_(str) {}
 
-inline const std::string& Package::name() const throw ()
+inline const Card&
+Package::showThisCard () const throw ()
+{
+  Cards::const_iterator pos = cards.find (index_cards_);
+  return pos->second;
+}
+
+inline const Glib::ustring& 
+Package::name() const throw ()
 {
   return name_;
 }
 
+inline unsigned int
+Package::num_cards () const throw ()
+{
+  return num_cards_;
+}
+
+inline unsigned int
+Package::index_cards () const throw ()
+{
+  return index_cards_;
+}
 #endif

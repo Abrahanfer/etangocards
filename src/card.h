@@ -23,39 +23,41 @@
 #ifndef CARD_H_
 #define CARD_H_
 
-#include<string>
+#include<glibmm.h>
 
 class Card {
 public:
-  Card(void);
-  Card(std::string, std::string);
-  void show(void) const;
-  const std::string& front () const;
-  const std::string& back () const;
+  Card (void);
+  Card (Glib::ustring, Glib::ustring);
+  const Glib::ustring& show (void) const;
+  const Glib::ustring& front (void) const;
+  const Glib::ustring& back (void) const;
 private:
-  std::string front_;
-  std::string back_;
+  mutable bool is_front_;
+  Glib::ustring front_;
+  Glib::ustring back_;
 };
 
 inline 
-Card::Card (void) 
+Card::Card (void):
+  is_front_(true)
 {}
 
 inline 
-Card::Card(std::string f, std::string b):
-  front_(f), back_(b) 
+Card::Card (Glib::ustring f, Glib::ustring b):
+  is_front_(true), front_(f), back_(b) 
 {}
 
 inline
-const std::string&
-Card::front () const
+const Glib::ustring&
+Card::front (void) const
 {
   return front_;
 }
 
 inline
-const std::string&
-Card::back () const
+const Glib::ustring&
+Card::back (void) const
 {
   return back_;
 }

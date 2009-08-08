@@ -50,7 +50,10 @@ public:
   const Packages& associate (void) const;
   //const Package& LoadPackage (const std::string&) const
   //throw (NoPackagesException, NoPackageFoundException);
-  void LoadPackage (const std::string&);
+  Package* LoadPackage (const std::string&);
+  /*    throw (Package::NotFoundPackageException, 
+	   Package::BadPackageFileException,
+	   RepeatPackageException);*/
   void showPackage (const std::string&);
   void listPackages (void) const;
   void NewPackage (const std::string&);

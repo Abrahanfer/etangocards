@@ -22,6 +22,7 @@
 #include<string>
 #include<map>
 #include<set>
+#include"dialog-package.h"
 #include"control-system.h"
 #include"package.h"
 
@@ -53,13 +54,16 @@ ControlSystem::LoadPackage (const std::string& str) const
   }
   }*/
 
-void
+Package*
 ControlSystem::LoadPackage (const std::string& str)
-//  throw (Package::NotFoundPackageException, Package::BadPackageFileException,
-//	 RepeatPackageException)
+/*throw (Package::NotFoundPackageException, Package::BadPackageFileException,
+  RepeatPackageException)*/
 {
   Package *pkg = new Package(path + str + ".xml", true);
   associate (str, pkg);
+  new DialogPackage (pkg);
+
+  return pkg;
 }
 
 void
@@ -90,7 +94,7 @@ ControlSystem::showPackage (const std::string& str)
       try{
 	switch (option[0]){
 	case 'a':
-	  pkg->addCard ();
+	  pkg->addCard ("", "");
 	  break;
 	case 'n':
 	  pkg->showNextCard ();

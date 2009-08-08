@@ -21,12 +21,27 @@
 #include<iostream>
 #include<string>
 #include<cstdlib>
+#include<gtkmm/main.h>
+#include<pthread.h>
 #include"control-system.h"
 #include"package.h"
+#include"dialog-package.h"
+#include"dialog-new.h"
 
 using namespace std;
 
-int main() {
+void*
+execute_in_background (void* p_null)
+{
+  Gtk::Main::run ();
+
+  return 0;
+}
+
+int
+main (int argc, char* argv[]) 
+{
+  Package* pkg_test2;
   ControlSystem cs;
   bool go = true;
   char option;
@@ -36,18 +51,24 @@ int main() {
     cerr << "ERROR: No memory." << endl;
     exit(1); 
   }
+
+ Gtk::Main kit (argc, argv);
+
   /* -------------------------------------------
-     Test case.
+     Test case 1 & 2
      -------------------------------------------
      ***
-     Funcionality: Load of packages in .xml
-     Description: Load 3 packages, test1, test2, and test3, 
-     with 0, 1, and 3 cards.
+     Funcionality 1: Load of packages in .xml.
+     Description 1: Load 3 packages, test1, test2, and test3.
      ***
+     Funcionality 2: Show packages in windows.
+     Description 2: Show 3 packages in their respest windows.
      */
   try
     {
+      
       cs.LoadPackage ("test1");
+      
     }
   catch (Package::NotFoundPackageException nfpe)
     {
@@ -60,8 +81,9 @@ int main() {
 	   << endl;
     }
   try
-    {    
-      cs.LoadPackage ("test2");
+    {
+      pkg_test2 = cs.LoadPackage ("test2");
+      
     }
   catch (Package::NotFoundPackageException nfpe)
     {
@@ -75,7 +97,7 @@ int main() {
     }
   try 
     {
-    cs.LoadPackage ("test3");
+      cs.LoadPackage ("test3");
     }
   catch (Package::NotFoundPackageException nfpe)
     {
@@ -87,7 +109,22 @@ int main() {
       cerr << "Some file are corrupted."
 	   << endl;
     }
+  pthread_t tid;
+  pthread_create (&tid, 0, &execute_in_background, 0);
+  //Gtk::Main::run ();
   //---------------------------------------------
+  /*---------------------------------------------
+    Test case 3
+    ---------------------------------------------
+    ***
+    Funcionality 3: Create new cards in a window.
+    Description 3: Add 2 cards to package "test2".
+    ***
+    */
+  //DialogNew dn1 (pkg_test2); 
+  //DialogNew dn2 (pkg_test2);
+  //---------------------------------------------
+
   while(go){
     cout << "Choose an option:\n"
 	 << "1. New  package.\n"
