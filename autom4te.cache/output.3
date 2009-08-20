@@ -643,6 +643,10 @@ LIBXMLPP_CFLAGS
 LIBXMLPP_LIBS
 GTKMM_CFLAGS
 GTKMM_LIBS
+LIBBONOBO_CFLAGS
+LIBBONOBO_LIBS
+LIBPANELAPPLETMM_CFLAGS
+LIBPANELAPPLETMM_LIBS
 CXX
 CXXFLAGS
 LDFLAGS
@@ -2540,6 +2544,14 @@ GTKMM_CFLAGS=`pkg-config --cflags gtkmm-2.4`
 
 GTKMM_LIBS=`pkg-config --libs gtkmm-2.4`
 
+LIBBONOBO_CFLAGS=`pkg-config --cflags libonobo-2.0`
+
+LIBBONOBO_LIBS=`pkg-config --libs libbonobo-2.0`
+
+LIBPANELAPPLETMM_CFLAGS=`pkg-config --cflags libpanelappletmm-2.6`
+
+LIBPANELAPPLETMM_LIBS=`pkg-config --libs libpanelappletmm-2.6`
+
 
 
 ac_ext=cpp
@@ -4063,6 +4075,10 @@ LIBXMLPP_CFLAGS!$LIBXMLPP_CFLAGS$ac_delim
 LIBXMLPP_LIBS!$LIBXMLPP_LIBS$ac_delim
 GTKMM_CFLAGS!$GTKMM_CFLAGS$ac_delim
 GTKMM_LIBS!$GTKMM_LIBS$ac_delim
+LIBBONOBO_CFLAGS!$LIBBONOBO_CFLAGS$ac_delim
+LIBBONOBO_LIBS!$LIBBONOBO_LIBS$ac_delim
+LIBPANELAPPLETMM_CFLAGS!$LIBPANELAPPLETMM_CFLAGS$ac_delim
+LIBPANELAPPLETMM_LIBS!$LIBPANELAPPLETMM_LIBS$ac_delim
 CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
 LDFLAGS!$LDFLAGS$ac_delim
@@ -4086,7 +4102,7 @@ LIB@&t@OBJS!$LIB@&t@OBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 85; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 89; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

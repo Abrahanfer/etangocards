@@ -25,6 +25,10 @@
 
 #include<glibmm.h>
 
+/**
+ *
+ *
+ */
 class Card {
 public:
   Card (void);

@@ -22,11 +22,15 @@
 #include<string>
 #include<map>
 #include<set>
+#include<libxml++/libxml++.h>
+#include<glibmm/main.h>
 #include"dialog-package.h"
 #include"control-system.h"
 #include"package.h"
 
-std::string ControlSystem::path("/home/abrahan/.etangocards/");
+std::string ControlSystem::path(Glib::get_home_dir ());
+
+ControlSystem::Packages ControlSystem::packages;
 
 void
 ControlSystem::associate (const std::string& str, Package* pkg)
@@ -59,8 +63,8 @@ ControlSystem::LoadPackage (const std::string& str)
 /*throw (Package::NotFoundPackageException, Package::BadPackageFileException,
   RepeatPackageException)*/
 {
-  Package *pkg = new Package(path + str + ".xml", true);
-  associate (str, pkg);
+  Package *pkg = new Package(str,true);
+  associate (pkg->name (), pkg);
   new DialogPackage (pkg);
 
   return pkg;
@@ -83,46 +87,49 @@ ControlSystem::showPackage (const std::string& str)
   }
   bool go = true;
   char *option = new char (100);
-  try{
-    pkg->showInitCard ();
-    while (go){
-      std::cout << "Choose an option:\n" 
-		<< "(a)add card, (n)next card, (p)previous card, "
-		<< "(e)exit" << std::endl
-		<< "$ ";
-      std::cin.getline (option, 100);
-      try{
-	switch (option[0]){
-	case 'a':
-	  pkg->addCard ("", "");
-	  break;
-	case 'n':
-	  pkg->showNextCard ();
-	  break;
-	case 'p':
-	  pkg->showPrevCard ();
-	  break;
-	case 'e':
-	  std::cout << "Exiting..." << std::endl;
-	  go = false;
-	  break;
-	default:
-	  std::cout << "Bad option." << std::endl;
+  try
+    {
+      pkg->showInitCard ();
+      while (go)
+	{
+	  std::cout << "Choose an option:\n" 
+		    << "(a)add card, (n)next card, (p)previous card, "
+		    << "(e)exit" << std::endl
+		    << "$ ";
+	  std::cin.getline (option, 100);
+	  try{
+	    switch (option[0]){
+	    case 'a':
+	      pkg->addCard ("", "");
+	      break;
+	    case 'n':
+	      pkg->showNextCard ();
+	      break;
+	    case 'p':
+	      pkg->showPrevCard ();
+	      break;
+	    case 'e':
+	      std::cout << "Exiting..." << std::endl;
+	      go = false;
+	      break;
+	    default:
+	      std::cout << "Bad option." << std::endl;
+	    }
+	  }catch (Package::EndPackageException e){
+	    std::cout << "In the finish of package." << std::endl; 
+	  }catch (Package::BeginPackageException e){
+	    std::cout << "In the begin of package." << std::endl;
+	  }
 	}
-      }catch (Package::EndPackageException e){
-	std::cout << "In the finish of package." << std::endl; 
-      }catch (Package::BeginPackageException e){
-	std::cout << "In the begin of package." << std::endl;
-      }
     }
-  }catch (Package::BadIndexCardsException e){
-    std::cout << "This package is corrupted, "
-	      << "please load other package." << std::endl;
-  }
+catch (Package::BadIndexCardsException e){
+  std::cout << "This package is corrupted, "
+	    << "please load other package." << std::endl;
+ }
 }
 
 void
-ControlSystem::listPackages () const
+ControlSystem::listPackages (void) const
 {
   Packages::const_iterator i;
   for (i = packages.begin (); i != packages.end (); ++i)
@@ -138,17 +145,32 @@ ControlSystem::NewPackage (const std::string& str)
 }
 
 void
-ControlSystem::serializeSystem (const std::string& pathname)
+ControlSystem::serializeSystem (void)
 {
   Packages::const_iterator i;
 
   for (i = packages.begin (); i != packages.end (); ++i)
     {
-      i->second->serialization (pathname);
+      i->second->serialization ();
     }
+
+  serializeConfigurationFile ();
 }
 
-ControlSystem::~ControlSystem ()
+void
+ControlSystem::eliminatePackage (const Package&) throw ()
+{
+  Packages::iterator pos = packages.find (pkg.name ());
+  packages.erase (pos);
+}
+
+void
+ControlSystem::serializeConfigurationFile (void) throw ()
+{
+
+}
+
+ControlSystem::~ControlSystem (void)
 {
   Packages::iterator pos;
 

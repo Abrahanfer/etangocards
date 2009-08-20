@@ -22,14 +22,14 @@
 #ifndef CONTROL_SYSTEM_H_
 #define CONTROL_SYSTEM_H_
 
-#include<string>
+#include<glibmm.h>
 #include<map>
 
 class Package;
 
 class ControlSystem {
 public:
-  typedef std::map<std::string, Package *> Packages;
+  typedef std::map<Glib::ustring, Package *> Packages;
   class RepeatPackageException {
   public:
     explicit RepeatPackageException (const std::string&);
@@ -45,30 +45,32 @@ public:
   private:
     std::string packageName_;
   };
-  void associate (const std::string&, Package*) 
+  static void associate (const std::string&, Package*) 
     throw (RepeatPackageException);
-  const Packages& associate (void) const;
+  //static const Packages& associate (void) const;
   //const Package& LoadPackage (const std::string&) const
   //throw (NoPackagesException, NoPackageFoundException);
-  Package* LoadPackage (const std::string&);
+  static Package* LoadPackage (const std::string&);
   /*    throw (Package::NotFoundPackageException, 
 	   Package::BadPackageFileException,
 	   RepeatPackageException);*/
   void showPackage (const std::string&);
   void listPackages (void) const;
   void NewPackage (const std::string&);
-  void serializeSystem (const std::string&);
+  static void serializeSystem ();
+  static void eliminatePackage (const Package&) throw ();
+  static void serializeConfigurationFile (void) throw ();
   ~ControlSystem (void);
   static std::string path;
 private:
-  Packages packages;
+  static Packages packages;
 };
 
-inline const ControlSystem::Packages& 
+/*inline const ControlSystem::Packages& 
 ControlSystem::associate (void) const
 {
   return packages;
-}
+  }*/
 
 inline 
 ControlSystem::RepeatPackageException::RepeatPackageException(

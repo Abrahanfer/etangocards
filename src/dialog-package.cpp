@@ -32,7 +32,7 @@ DialogPackage::DialogPackage (Package *pkg):
   pkg_(pkg)
 {
   pdialog_package_ = 
-    Gtk::Builder::create_from_file ("../data/ui/dialog_package.ui");
+    Gtk::Builder::create_from_file ("/home/abrahan/Documentos/Proyecto/ETangoCard/data/ui/dialog_package.ui");
 
   pdialog_package_lbl1_ = 0;
   pdialog_package_->get_widget ("dialog_package_lbl1",
@@ -106,8 +106,11 @@ DialogPackage::DialogPackage (Package *pkg):
   pdialog_package_window_ = 0;
   pdialog_package_->get_widget ("dialog_package_window",
 				pdialog_package_window_);
+  pdialog_package_window_->signal_hide ().connect
+    (sigc::mem_fun(
+		   *this,
+		   &DialogPackage::dialog_package_hide));
  
-
   pdialog_package_window_->show ();
 }
 
@@ -167,4 +170,13 @@ DialogPackage::refresh_num_cards (void) const throw ()
 
   oss << pkg_->num_cards ();
   pdialog_package_lbl3_->set_text (oss.str ());
+}
+
+void
+DialogPackage::dialog_package_hide (void) throw ()
+{
+  pkg_->serialization ();
+  ControlSystem::eliminatePackage (*pkg_);
+  ControlSystem::serializeSystem ();
+
 }

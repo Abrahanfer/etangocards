@@ -1,0 +1,30 @@
+<oaf_info>
+
+<oaf_server iid="OAFIID:ETangoCardsApplet_Factory"
+	    type="exe"
+	    location="/home/abrahan/Documentos/Proyecto/ETangoCard/build/src/etangocards">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:Bonobo/GenericFactory:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+	</oaf_attribute>
+	<oaf_attribute name="name" type="string" value="ETangoCards Applet Factory"/>
+	<oaf_attribute name="description" type="string" value="Factory for testing ETangoCards applet"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:ETangoCardsApplet"
+	    type="factory" 
+	    location="OAFIID:ETangoCardsApplet_Factory">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+		<item value="IDL:Bonobo/Control:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+	</oaf_attribute>
+	<oaf_attribute name="name" type="string" value="ETangoCards Applet"/>
+	<oaf_attribute name="description" type="string" value="The simplest flash card application"/>
+	<oaf_attribute name="panel:category" type="string" value="Amusements"/>
+  <oaf_attribute name="panel:icon" type="string" value="panel-notification-area.png"/>
+</oaf_server>
+
+</oaf_info>

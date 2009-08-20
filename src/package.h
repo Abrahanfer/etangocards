@@ -47,7 +47,10 @@ public:
     Glib::ustring pkg_name_;
   };
   typedef std::map<unsigned int, Card> Cards;
-  Package (const std::string&) throw ();
+  Package (const Glib::ustring&)
+    throw ();
+  Package (const Glib::ustring&, const Glib::ustring&)
+    throw ();
   Package (const std::string&, bool) 
     throw (NotFoundPackageException, BadPackageFileException);
   void addCard (const Glib::ustring&, const Glib::ustring&) 
@@ -62,18 +65,19 @@ public:
   const Glib::ustring& name () const throw ();
   unsigned int num_cards () const throw ();
   unsigned int index_cards () const throw ();
-  void serialization (const std::string&) throw ();
+  void serialization () throw ();
 private:
+  Glib::ustring path_;
+  Glib::ustring name_;
   unsigned int num_cards_;
   unsigned int index_cards_;
   Cards cards;
-  Glib::ustring name_;
 };
 
 inline
 Package::NotFoundPackageException::NotFoundPackageException 
-(const Glib::ustring& pkg_name): 
-  pkg_name_(pkg_name)
+(const Glib::ustring& pkg_name):
+  pkg_name_ (pkg_name)
 {}
 
 inline const Glib::ustring&
@@ -94,8 +98,17 @@ Package::BadPackageFileException::what () const
   return pkg_name_;
 }
 
-inline Package::Package (const std::string& str) throw ():
-  num_cards_(0), index_cards_(0), name_(str) {}
+inline
+Package::Package (const Glib::ustring& name)
+  throw ():
+  name_ (name)
+{}
+
+inline
+Package::Package (const Glib::ustring& name, const Glib::ustring& path)
+  throw ():
+  path_ (path), name_ (name), num_cards_ (0), index_cards_ (0)
+{}
 
 inline const Card&
 Package::showThisCard () const throw ()

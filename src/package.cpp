@@ -27,7 +27,8 @@
 #include"card.h"
 
 Package::Package (const std::string& pathname, bool isXml)
-  throw (NotFoundPackageException, BadPackageFileException)
+  throw (NotFoundPackageException, BadPackageFileException):
+  path_ (pathname)
 {
   unsigned int n_cards = 0;
   xmlpp::DomParser parser;
@@ -74,8 +75,7 @@ void
 Package::addCard(const Glib::ustring& front, const Glib::ustring& back) 
   throw ()//TODO: Exception bad insert, & position insert
 {
-  cards.insert(std::make_pair(++num_cards_, Card(front, back)));  
-  Cards::iterator pos = cards.find(num_cards_);
+  cards.insert(std::make_pair(++num_cards_, Card(front, back)));
   /*if(pos != cards.end())
     (pos->second).show ();*/
 }
@@ -127,7 +127,7 @@ Package::showPrevCard()
 }
 
 void 
-Package::serialization (const std::string& pathname) 
+Package::serialization (void) 
   throw ()
 {
   xmlpp::Document document;
@@ -145,8 +145,6 @@ Package::serialization (const std::string& pathname)
       nodeChild->set_attribute ("front", i->second.front ());
       nodeChild->set_attribute ("back", i->second.back ());
     }
-  std::ostringstream o3;
-  o3 << pathname << "/" <<name_ << ".xml";
 
-  document.write_to_file_formatted (o3.str ());
+  document.write_to_file_formatted (path_);
 }

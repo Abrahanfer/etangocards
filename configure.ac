@@ -10,6 +10,14 @@ dnl Checking for gtkmm2.4
 PKG_CHECK_MODULES(GTKMM, gtkmm-2.4 >= 2.8.0)
 AC_SUBST(GTKMM_CFLAGS, [`pkg-config --cflags gtkmm-2.4`])
 AC_SUBST(GTKMM_LIBS, [`pkg-config --libs gtkmm-2.4`])
+dnl Checking for libbonobo-2.0
+dnl PKG_CHECK_MODULES(GTKMM, gtkmm-2.4 >= 2.8.0)
+AC_SUBST(LIBBONOBO_CFLAGS, [`pkg-config --cflags libonobo-2.0`])
+AC_SUBST(LIBBONOBO_LIBS, [`pkg-config --libs libbonobo-2.0`])
+dnl Checking for libpanelapplet-2.6
+dnl PKG_CHECK_MODULES(GTKMM, gtkmm-2.4 >= 2.8.0)
+AC_SUBST(LIBPANELAPPLETMM_CFLAGS, [`pkg-config --cflags libpanelappletmm-2.6`])
+AC_SUBST(LIBPANELAPPLETMM_LIBS, [`pkg-config --libs libpanelappletmm-2.6`])
 
 dnl Para la pruebas
 dnl AC_SUBST(target_abbrev, [unix])

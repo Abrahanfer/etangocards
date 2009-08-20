@@ -23,25 +23,28 @@
 #include<cstdlib>
 #include<gtkmm/main.h>
 #include<pthread.h>
+#include<libpanelappletmm.h>
+#include<libbonobo.h>
 #include"control-system.h"
 #include"package.h"
 #include"dialog-package.h"
 #include"dialog-new.h"
+#include"etangocards-applet.h"
 
 using namespace std;
 
-void*
+/*void*
 execute_in_background (void* p_null)
 {
   Gtk::Main::run ();
 
   return 0;
-}
+}*/
 
 int
 main (int argc, char* argv[]) 
 {
-  Package* pkg_test2;
+  /*Package* pkg_test2;
   ControlSystem cs;
   bool go = true;
   char option;
@@ -52,9 +55,9 @@ main (int argc, char* argv[])
     exit(1); 
   }
 
- Gtk::Main kit (argc, argv);
+  Gtk::Main kit (argc, argv);
 
-  /* -------------------------------------------
+   -------------------------------------------
      Test case 1 & 2
      -------------------------------------------
      ***
@@ -63,8 +66,8 @@ main (int argc, char* argv[])
      ***
      Funcionality 2: Show packages in windows.
      Description 2: Show 3 packages in their respest windows.
-     */
-  try
+  */
+  /* try
     {
       
       cs.LoadPackage ("test1");
@@ -109,11 +112,10 @@ main (int argc, char* argv[])
       cerr << "Some file are corrupted."
 	   << endl;
     }
-  pthread_t tid;
-  pthread_create (&tid, 0, &execute_in_background, 0);
+ 
   //Gtk::Main::run ();
   //---------------------------------------------
-  /*---------------------------------------------
+  ---------------------------------------------
     Test case 3
     ---------------------------------------------
     ***
@@ -125,7 +127,7 @@ main (int argc, char* argv[])
   //DialogNew dn2 (pkg_test2);
   //---------------------------------------------
 
-  while(go){
+  /*while(go){
     cout << "Choose an option:\n"
 	 << "1. New  package.\n"
 	 << "2. Show package.\n"
@@ -157,9 +159,9 @@ main (int argc, char* argv[])
 	break;
       case '5':
 	go = false;
-	//cout << "Introduce the path of packages be saved:\n$ ";
+	//cout << "Introduce the path of packages will be saved:\n$ ";
 	//cin.getline (name, 100);
-	cs.serializeSystem ("/home/abrahan/.etangocards");
+	cs.serializeSystem (ControlSystem::path);
 	cout << "System serialiced.\n"
 	     << "See you the next time...;-)" << endl;
 	break;
@@ -177,5 +179,19 @@ main (int argc, char* argv[])
     }
   }
   //delete name;
+  */
+  Gnome::Panel::init("TestPanelmm", "0.1", argc, argv);
+  
+  try
+    {
+      int returncode = Gnome::Panel::factory_main<ETangoCardsApplet>("OAFIID:ETangoCardsApplet_Factory");
+      cout << "hola" << endl;
+      return returncode;
+    }
+  catch(const Glib::Error& ex)
+    {
+      std::cout << ex.what() << std::endl;
+      return 0;
+    }
 
 }
