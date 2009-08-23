@@ -29,21 +29,30 @@
 #include<gtkmm/label.h>
 #include<gtkmm/textview.h>
 #include<gtkmm/textbuffer.h>
+#include<set>
 #include"package.h"
 #include"dialog-new.h"
 
 class DialogPackage {
 public:
+  typedef std::set<DialogPackage *> DialogPackages;
   DialogPackage (Package *);
   ~DialogPackage (void);
   void refresh_num_cards (void) const throw ();
+  static void dialog_package_hide_windows (void) throw ();
+  void hide (void) throw ();
+  static void insertDialogPackage (DialogPackage *) throw ();
+  static void dialog_package_show_windows (void) throw ();
+  void show (void) throw ();
 private:
   void dialog_package_new_card (void) throw ();
   void dialog_package_prev_card (void) throw ();
   void dialog_package_next_card (void) throw ();
   void dialog_package_show (void) throw ();
-  void dialog_package_hide (void) throw ();
+  bool dialog_package_close (GdkEventAny *) throw ();
   Package *pkg_;
+  static DialogPackages dialogPackages;
+  static bool allWindowsHide;
   Glib::RefPtr<Gtk::Builder> pdialog_package_;
   Gtk::Window* pdialog_package_window_;
   Gtk::ToolButton* pdialog_package_new_;
@@ -62,4 +71,22 @@ DialogPackage::dialog_package_new_card (void) throw ()
   new DialogNew(pkg_, this);
 }
 
+inline void
+DialogPackage::hide () throw ()
+{
+  pdialog_package_window_->hide ();
+}
+
+inline void
+DialogPackage::insertDialogPackage (DialogPackage * pdpkg)
+  throw ()
+{
+  dialogPackages.insert (pdpkg);
+}
+
+inline void
+DialogPackage::show () throw ()
+{
+  pdialog_package_window_->show ();
+}
 #endif //DIALOG_PACKAGE_H_

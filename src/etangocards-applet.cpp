@@ -3,6 +3,7 @@
 #include<libpanelappletmm.h>
 #include<libbonobo.h>
 #include<string>
+#include<libxml++/libxml++.h>
 #include"etangocards-applet.h"
 #include"control-system.h"
 #include"dialog-creation-package.h"
@@ -10,7 +11,7 @@
 ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
   Gnome::Panel::Applet (castitem)
 {
-
+  unsigned int index_cards;
 
   static const Glib::ustring xml_popup =
     "<popup name='button3'>\n"
@@ -20,6 +21,12 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
     "   <menuitem name='New Package Item'\n"
     "             verb='NewPackage' _label='_New Package...'\n"
     "             pixtype='stock' pixname='gtk-new'/>\n"
+    "   <menuitem name='Hide Packages Item'\n"
+    "             verb='HidePackages' _label='Hi_de Packages...'\n"
+    "             />\n"
+    "   <menuitem name='Show Packages Item'\n"
+    "             verb='ShowPackages' _label='_Show Packages...'\n"
+    "             />\n"
     "</popup>\n";
 
   static const BonoboUIVerb menu_verb[] = 
@@ -28,19 +35,55 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
 		      &ETangoCardsApplet::applet_load_package),
       BONOBO_UI_VERB ("NewPackage", 
 		      &ETangoCardsApplet::applet_new_package),
+      BONOBO_UI_VERB ("HidePackages", 
+		      &ETangoCardsApplet::applet_hide_packages),
+      BONOBO_UI_VERB ("ShowPackages", 
+		      &ETangoCardsApplet::applet_show_packages),
       BONOBO_UI_VERB_END
     };
 
   setup_menu (xml_popup, menu_verb, this);
   
   add (*Gtk::manage(new Gtk::Label ("ETangoCards Applet")));
+
   set_flags (Gnome::Panel::APPLET_EXPAND_MINOR);
-  
+  //Recuperation of lastest session
+  xmlpp::DomParser parser;
+  try
+    {
+      parser.parse_file (ControlSystem::path_);
+    }
+  catch (xmlpp::internal_error e)
+    {
+      throw;
+    }
+  if (parser)
+    {
+      const xmlpp::Element* root = 
+	parser.get_document ()->get_root_node ();
+      xmlpp::Node::NodeList nodelist = root->get_children (); 
+      xmlpp::Node::NodeList::const_iterator i;
+      for(i = nodelist.begin (); i != nodelist.end (); ++i)
+	{
+	  xmlpp::Element *node = dynamic_cast<xmlpp::Element*>(*i);
+	  if(node)
+	    {
+	      std::istringstream iss
+		(node->get_attribute_value ("index_cards"));
+	      iss >> index_cards;
+	      Glib::ustring path(node->get_attribute_value ("path"));
+	      ControlSystem::LoadPackage (path, index_cards);
+	    }
+	}
+    }  
+
+
   show_all ();
 }
 
 ETangoCardsApplet::~ETangoCardsApplet (void)
 {
+  ControlSystem::serializeSystem ();
 }
 
 void 
@@ -86,7 +129,7 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
 	//Notice that this is a std::string, not a Glib::ustring.
 	std::string filename = dialog.get_filename();
 	ControlSystem *cs = new ControlSystem();
-	cs->LoadPackage (filename);
+	cs->LoadPackage (filename, 1);
 	break;
       }
     case(Gtk::RESPONSE_CANCEL):
@@ -100,9 +143,3 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
     }
 }
 
-void
-ETangoCardsApplet::applet_new_package (BonoboUIComponent *, 
-				       void *applet, const char *)
-{
-  new DialogCreationPackage ();
-}

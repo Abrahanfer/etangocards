@@ -50,7 +50,7 @@ public:
   //static const Packages& associate (void) const;
   //const Package& LoadPackage (const std::string&) const
   //throw (NoPackagesException, NoPackageFoundException);
-  static Package* LoadPackage (const std::string&);
+  static Package* LoadPackage (const std::string&, unsigned int);
   /*    throw (Package::NotFoundPackageException, 
 	   Package::BadPackageFileException,
 	   RepeatPackageException);*/
@@ -61,7 +61,7 @@ public:
   static void eliminatePackage (const Package&) throw ();
   static void serializeConfigurationFile (void) throw ();
   ~ControlSystem (void);
-  static std::string path;
+  static std::string path_;
 private:
   static Packages packages;
 };

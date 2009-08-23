@@ -50,4 +50,4 @@ private:
   Gtk::TextView* pdialog_new_textview_; 
 };
 
-#endif
+#endif //DIALOG_NEW_H_

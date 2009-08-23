@@ -28,7 +28,7 @@
 #include"control-system.h"
 #include"package.h"
 
-std::string ControlSystem::path(Glib::get_home_dir ());
+std::string ControlSystem::path_(Glib::get_home_dir () + "/.etangocards");
 
 ControlSystem::Packages ControlSystem::packages;
 
@@ -59,13 +59,14 @@ ControlSystem::LoadPackage (const std::string& str) const
   }*/
 
 Package*
-ControlSystem::LoadPackage (const std::string& str)
+ControlSystem::LoadPackage (const std::string& str, unsigned int index_cards)
 /*throw (Package::NotFoundPackageException, Package::BadPackageFileException,
   RepeatPackageException)*/
 {
-  Package *pkg = new Package(str,true);
+  Package *pkg = new Package(str, index_cards, true);
   associate (pkg->name (), pkg);
-  new DialogPackage (pkg);
+  DialogPackage *pdpkg = new DialogPackage (pkg);
+  DialogPackage::insertDialogPackage (pdpkg);
 
   return pkg;
 }
@@ -158,7 +159,7 @@ ControlSystem::serializeSystem (void)
 }
 
 void
-ControlSystem::eliminatePackage (const Package&) throw ()
+ControlSystem::eliminatePackage (const Package& pkg) throw ()
 {
   Packages::iterator pos = packages.find (pkg.name ());
   packages.erase (pos);
@@ -167,13 +168,28 @@ ControlSystem::eliminatePackage (const Package&) throw ()
 void
 ControlSystem::serializeConfigurationFile (void) throw ()
 {
+  xmlpp::Document configurationFile;
 
+  xmlpp::Element* nodeRoot = 
+    configurationFile.create_root_node ("Packages");
+  Packages::const_iterator i;
+  for (i = packages.begin (); i != packages.end (); ++i)
+    {
+      xmlpp::Element* nodeChild = nodeRoot->add_child ("Package");
+      std::ostringstream oss;
+      oss << i->second->index_cards ();
+      nodeChild->set_attribute ("index_cards", oss.str ());
+      nodeChild->set_attribute ("path", i->second->path ());
+    }
+
+  configurationFile.write_to_file_formatted (path_);
 }
 
 ControlSystem::~ControlSystem (void)
 {
   Packages::iterator pos;
 
-  for (pos = packages.begin (); pos != packages.end (); ++pos)
+  for (pos = packages.begin (); pos != packages.end (); 
+       ++pos)
     delete pos->second;
 }

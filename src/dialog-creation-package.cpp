@@ -77,10 +77,11 @@ DialogCreationPackage::dialog_creation_package_save (void)
 
 	//Notice that this is a std::string, not a Glib::ustring.
 	Glib::ustring filename = dialog.get_filename ();
-	Package *pkg =new Package (pkg_name, filename);
+	Package *pkg = new Package (pkg_name, filename);
 	ControlSystem::associate (pkg_name, pkg);
 	pdialog_creation_package_window_->hide ();
-	new DialogPackage (pkg);
+	DialogPackage *pdpkg = new DialogPackage (pkg);
+	DialogPackage::insertDialogPackage (pdpkg);
 	break;
       }
     case(Gtk::RESPONSE_CANCEL):

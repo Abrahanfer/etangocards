@@ -51,7 +51,7 @@ public:
     throw ();
   Package (const Glib::ustring&, const Glib::ustring&)
     throw ();
-  Package (const std::string&, bool) 
+  Package (const std::string&, unsigned int, bool) 
     throw (NotFoundPackageException, BadPackageFileException);
   void addCard (const Glib::ustring&, const Glib::ustring&) 
     throw ();
@@ -65,6 +65,7 @@ public:
   const Glib::ustring& name () const throw ();
   unsigned int num_cards () const throw ();
   unsigned int index_cards () const throw ();
+  const Glib::ustring& path () const throw ();
   void serialization () throw ();
 private:
   Glib::ustring path_;
@@ -134,4 +135,11 @@ Package::index_cards () const throw ()
 {
   return index_cards_;
 }
-#endif
+
+inline const Glib::ustring&
+Package::path () const throw ()
+{
+  return path_;
+}
+
+#endif //PACKAGE_H_

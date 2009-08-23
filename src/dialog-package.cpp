@@ -28,6 +28,10 @@
 #include"dialog-package.h"
 #include"dialog-new.h"
 
+DialogPackage::DialogPackages DialogPackage::dialogPackages;
+
+bool DialogPackage::allWindowsHide = false;
+
 DialogPackage::DialogPackage (Package *pkg):
   pkg_(pkg)
 {
@@ -106,10 +110,10 @@ DialogPackage::DialogPackage (Package *pkg):
   pdialog_package_window_ = 0;
   pdialog_package_->get_widget ("dialog_package_window",
 				pdialog_package_window_);
-  pdialog_package_window_->signal_hide ().connect
+  pdialog_package_window_->signal_delete_event ().connect
     (sigc::mem_fun(
 		   *this,
-		   &DialogPackage::dialog_package_hide));
+		   &DialogPackage::dialog_package_close));
  
   pdialog_package_window_->show ();
 }
@@ -172,11 +176,31 @@ DialogPackage::refresh_num_cards (void) const throw ()
   pdialog_package_lbl3_->set_text (oss.str ());
 }
 
-void
-DialogPackage::dialog_package_hide (void) throw ()
+bool
+DialogPackage::dialog_package_close (GdkEventAny *) throw ()
 {
+  pdialog_package_window_->hide ();
   pkg_->serialization ();
   ControlSystem::eliminatePackage (*pkg_);
+  dialogPackages.erase (this);
   ControlSystem::serializeSystem ();
 
+  return true;
+}
+
+void
+DialogPackage::dialog_package_hide_windows (void) throw ()
+{
+  DialogPackages::iterator i;
+  for (i = dialogPackages.begin (); i != dialogPackages.end (); ++i)
+    (*i)->hide ();
+
+}
+
+void
+DialogPackage::dialog_package_show_windows (void) throw ()
+{
+      DialogPackages::iterator i;
+      for (i = dialogPackages.begin (); i != dialogPackages.end (); ++i)
+	(*i)->show ();
 }

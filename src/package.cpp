@@ -26,7 +26,8 @@
 #include"package.h"
 #include"card.h"
 
-Package::Package (const std::string& pathname, bool isXml)
+Package::Package (const std::string& pathname, unsigned int index_cards, 
+		  bool isXml)
   throw (NotFoundPackageException, BadPackageFileException):
   path_ (pathname)
 {
@@ -49,10 +50,7 @@ Package::Package (const std::string& pathname, bool isXml)
 	root->get_attribute_value ("num_cards");
       std::istringstream iss_num_cards(num_cards);
       iss_num_cards >> num_cards_;
-      std::string index_cards = 
-	root->get_attribute_value ("index_cards");
-      std::istringstream iss_index_cards(index_cards);
-      iss_index_cards >> index_cards_;
+      index_cards_ = index_cards;
       xmlpp::Node::NodeList nodelist = root->get_children (); 
       xmlpp::Node::NodeList::const_iterator i;
       for(i = nodelist.begin (); i != nodelist.end (); ++i)
@@ -131,13 +129,12 @@ Package::serialization (void)
   throw ()
 {
   xmlpp::Document document;
-  std::ostringstream o1, o2;
+  std::ostringstream o1;
+
   o1 << num_cards_;
-  o2 << index_cards_;
   xmlpp::Element* nodeRoot = document.create_root_node ("Package");
   nodeRoot->set_attribute ("name", name_);
   nodeRoot->set_attribute ("num_cards", o1.str ());
-  nodeRoot->set_attribute ("index_cards", o2.str ());
   Cards::const_iterator i;
   for (i = cards.begin (); i != cards.end (); ++i)
     {
