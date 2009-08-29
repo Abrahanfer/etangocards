@@ -33,6 +33,5 @@ AM_MAINTAINER_MODE
 AC_CONFIG_FILES([
 	Makefile
 	src/Makefile
-	data/Makefile
 	])
 AC_OUTPUT
