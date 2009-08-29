@@ -2,7 +2,7 @@
 
 <oaf_server iid="OAFIID:ETangoCardsApplet_Factory"
 	    type="exe"
-	    location="/home/abrahan/Documentos/Proyecto/ETangoCard/build/src/etangocards">
+	    location="/usr/local/bin/etangocards">
 
 	<oaf_attribute name="repo_ids" type="stringv">
 		<item value="IDL:Bonobo/GenericFactory:1.0"/>
@@ -21,8 +21,9 @@
 		<item value="IDL:Bonobo/Control:1.0"/>
 		<item value="IDL:Bonobo/Unknown:1.0"/>
 	</oaf_attribute>
-	<oaf_attribute name="name" type="string" value="ETangoCards Applet"/>
-	<oaf_attribute name="description" type="string" value="The simplest flash card application"/>
+	<oaf_attribute name="name" type="string" value="ETangoCards"/>
+	<oaf_attribute name="description" type="string" value="A free and fresh flash card application"/>
+	<oaf_attribute name="panel:icon" type="string" value="/usr/local/share/etangocards/icons/etangocards.48.png"/>
 	<oaf_attribute name="panel:category" type="string" value="Amusements"/>
   <oaf_attribute name="panel:icon" type="string" value="panel-notification-area.png"/>
 </oaf_server>

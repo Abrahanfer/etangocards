@@ -1,5 +1,5 @@
 //-*-c++-*-
-/* dialog-creation-package.h
+/* main.h
  *
  * Copyright (C) 2009 Abrahán Fernández Nieto
  *
@@ -19,25 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#ifndef MAIN_H_
+#define MAIN_H_
 
-#ifndef DIALOG_CREATION_PACKAGE_H_
-#define DIALOG_CREATION_PACKAGE_H_
+#define UI_DIR  DATADIR G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S "ui"
 
-#include<gtkmm/window.h>
-#include<gtkmm/button.h>
-#include"main.h"
+#define FILE_UI_DIALOG_PACKAGE UI_DIR G_DIR_SEPARATOR_S "dialog_package.ui"
+#define FILE_UI_DIALOG_NEW UI_DIR G_DIR_SEPARATOR_S "dialog_new.ui"
+#define FILE_UI_DIALOG_CREATION_PACKAGE \
+  UI_DIR G_DIR_SEPARATOR_S "dialog_creation_package.ui"
 
-class DialogCreationPackage {
-public:
-  DialogCreationPackage (void);
-  ~DialogCreationPackage (void);
-private:
-  void dialog_creation_package_cancel (void) throw();
-  void dialog_creation_package_save (void) throw();
-  Gtk::Window* pdialog_creation_package_window_;
-  Gtk::Button* pdialog_creation_package_btn_cancel_;
-  Gtk::Button* pdialog_creation_package_btn_save_;
-  Gtk::Entry* pdialog_creation_package_entry_;
-};
+#define ICONS_DIR DATADIR G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S "icons"
 
-#endif //DIALOG_CREATION_PACKAGE_H_
+#define ICONS_ETANGOCARDS_32 ICONS_DIR G_DIR_SEPARATOR_S "etangocards.32.png"
+#define ICONS_ETANGOCARDS_48 ICONS_DIR G_DIR_SEPARATOR_S "etangocards.48.png"
+
+#endif //MAIN_H_

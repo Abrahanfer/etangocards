@@ -27,13 +27,14 @@
 #include"package.h"
 #include"dialog-new.h"
 #include"dialog-package.h"
+#include"main.h"
 
 
 DialogNew::DialogNew (Package* pkg, const DialogPackage* d_pkg):
   front_ (""), back_ (""), pkg_ (pkg), is_front_ (true), d_pkg_ (d_pkg)
 {
   pdialog_new_ =
-    Gtk::Builder::create_from_file ("/home/abrahan/Documentos/Proyecto/ETangoCard/data/ui/dialog_new.ui");
+    Gtk::Builder::create_from_file (FILE_UI_DIALOG_NEW);
     
     
   pdialog_new_save_button_ = 0;
@@ -66,7 +67,10 @@ DialogNew::DialogNew (Package* pkg, const DialogPackage* d_pkg):
   pdialog_new_window_ = 0;
   pdialog_new_->get_widget ("dialog_new_window",
 			    pdialog_new_window_);
-
+  //show icons
+  Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
+    (ICONS_ETANGOCARDS_32);
+  pdialog_new_window_->set_icon (icon);
   pdialog_new_window_->show ();
   
 }

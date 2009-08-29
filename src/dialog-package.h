@@ -30,6 +30,7 @@
 #include<gtkmm/textview.h>
 #include<gtkmm/textbuffer.h>
 #include<set>
+#include"main.h"
 #include"package.h"
 #include"dialog-new.h"
 

@@ -14,7 +14,6 @@
 
 @SET_MAKE@
 
-#AUTOMAKE_OPTIONS = dejagnu
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -54,6 +53,18 @@ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	install-pdf-recursive install-ps-recursive install-recursive \
 	installcheck-recursive installdirs-recursive pdf-recursive \
 	ps-recursive uninstall-recursive
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(iconsdir)" "$(DESTDIR)$(serverdir)" \
+	"$(DESTDIR)$(uidir)"
+iconsDATA_INSTALL = $(INSTALL_DATA)
+serverDATA_INSTALL = $(INSTALL_DATA)
+uiDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(icons_DATA) $(server_DATA) $(ui_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -71,11 +82,15 @@ GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
+ACLOCAL_AMFLAGS = @ACLOCAL_AMFLAGS@
 AMTAR = @AMTAR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+CC = @CC@
+CCDEPMODE = @CCDEPMODE@
+CFLAGS = @CFLAGS@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXDEPMODE = @CXXDEPMODE@
@@ -83,6 +98,7 @@ CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DISABLE_DEPRECATED = @DISABLE_DEPRECATED@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
@@ -120,10 +136,12 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WARN_CFLAGS = @WARN_CFLAGS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -162,6 +180,21 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = src
+uidir = $(datadir)/$(PACKAGE)/ui
+ui_DATA = data/ui/dialog_package.ui \
+	  data/ui/dialog_new.ui	    \
+	  data/ui/dialog_creation_package.ui
+
+iconsdir = $(datadir)/$(PACKAGE)/icons
+icons_DATA = data/icons/etangocards.32.png \
+	     data/icons/etangocards.48.png
+
+serverdir = /usr/lib/bonobo/servers
+server_DATA = src/ETangoCards_Applet.server
+EXTRA_DIST = $(ui_DATA) \
+	     $(server_DATA)\
+	     $(icons_DATA)
+
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -216,6 +249,57 @@ $(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
+install-iconsDATA: $(icons_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(iconsdir)" || $(MKDIR_P) "$(DESTDIR)$(iconsdir)"
+	@list='$(icons_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(iconsDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(iconsdir)/$$f'"; \
+	  $(iconsDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(iconsdir)/$$f"; \
+	done
+
+uninstall-iconsDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(icons_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(iconsdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(iconsdir)/$$f"; \
+	done
+install-serverDATA: $(server_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(serverdir)" || $(MKDIR_P) "$(DESTDIR)$(serverdir)"
+	@list='$(server_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(serverDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(serverdir)/$$f'"; \
+	  $(serverDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(serverdir)/$$f"; \
+	done
+
+uninstall-serverDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(server_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(serverdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(serverdir)/$$f"; \
+	done
+install-uiDATA: $(ui_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(uidir)" || $(MKDIR_P) "$(DESTDIR)$(uidir)"
+	@list='$(ui_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(uiDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(uidir)/$$f'"; \
+	  $(uiDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(uidir)/$$f"; \
+	done
+
+uninstall-uiDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(ui_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(uidir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(uidir)/$$f"; \
+	done
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -497,9 +581,12 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-recursive
-all-am: Makefile config.h
+all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
+	for dir in "$(DESTDIR)$(iconsdir)" "$(DESTDIR)$(serverdir)" "$(DESTDIR)$(uidir)"; do \
+	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+	done
 install: install-recursive
 install-exec: install-exec-recursive
 install-data: install-data-recursive
@@ -543,7 +630,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am:
+install-data-am: install-iconsDATA install-serverDATA install-uiDATA
 
 install-dvi: install-dvi-recursive
 
@@ -579,7 +666,8 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am:
+uninstall-am: uninstall-iconsDATA uninstall-serverDATA \
+	uninstall-uiDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-strip
@@ -592,16 +680,15 @@ uninstall-am:
 	distdir distuninstallcheck dvi dvi-am html html-am info \
 	info-am install install-am install-data install-data-am \
 	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am
+	install-html install-html-am install-iconsDATA install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-serverDATA install-strip \
+	install-uiDATA installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
+	tags-recursive uninstall uninstall-am uninstall-iconsDATA \
+	uninstall-serverDATA uninstall-uiDATA
 
-
-#RUNTESTFLAGS = --tool src/etangocards ETANGOCARDS=`pwd`/src/etangocards \
-#	--srcdir ./src/testsuite
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

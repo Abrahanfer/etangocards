@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include<iostream>
 #include<sstream>
 #include<gtkmm/main.h>
 #include<gtkmm/builder.h>
@@ -36,7 +37,10 @@ DialogPackage::DialogPackage (Package *pkg):
   pkg_(pkg)
 {
   pdialog_package_ = 
-    Gtk::Builder::create_from_file ("/home/abrahan/Documentos/Proyecto/ETangoCard/data/ui/dialog_package.ui");
+    Gtk::Builder::create_from_file (FILE_UI_DIALOG_PACKAGE);
+  if (!pdialog_package_)
+    std::cerr << "La mierda es clara" << std::endl;
+
 
   pdialog_package_lbl1_ = 0;
   pdialog_package_->get_widget ("dialog_package_lbl1",
@@ -114,7 +118,11 @@ DialogPackage::DialogPackage (Package *pkg):
     (sigc::mem_fun(
 		   *this,
 		   &DialogPackage::dialog_package_close));
- 
+  //icon
+  Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
+    (ICONS_ETANGOCARDS_32);
+  pdialog_package_window_->set_icon (icon);
+
   pdialog_package_window_->show ();
 }
 

@@ -28,6 +28,7 @@
 #include<gtkmm/toolbutton.h>
 #include<gtkmm/textview.h>
 #include"package.h"
+#include"main.h"
 
 class DialogPackage;
 
