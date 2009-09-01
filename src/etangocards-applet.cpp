@@ -68,9 +68,9 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
   //  Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file 
   //(ICONS_ETANGOCARDS_32);
 
-  add(*Gtk::manage(new Gtk::Image(ICONS_ETANGOCARDS_32)));
+  Gtk::Image *picon = new Gtk::Image(ICONS_ETANGOCARDS_32);
+  add(*picon);
 
-  set_visible_window (false);
   //  set_flags (Gnome::Panel::APPLET_EXPAND_MINOR);
   //Recuperation of lastest session
   xmlpp::DomParser parser;
@@ -80,7 +80,6 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
     }
   catch (xmlpp::internal_error e)
     {
-      throw;
     }
   if (parser)
     {

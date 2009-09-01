@@ -71,7 +71,7 @@ ControlSystem::LoadPackage (const std::string& str, unsigned int index_cards)
   return pkg;
 }
 
-void
+/*void
 ControlSystem::showPackage (const std::string& str)
 {
   Package *pkg;
@@ -127,7 +127,7 @@ catch (Package::BadIndexCardsException e){
   std::cout << "This package is corrupted, "
 	    << "please load other package." << std::endl;
  }
-}
+ }*/
 
 void
 ControlSystem::listPackages (void) const
