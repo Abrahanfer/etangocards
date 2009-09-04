@@ -64,6 +64,9 @@ private:
   mutable Gtk::Label* pdialog_package_lbl3_;
   Glib::RefPtr<Gtk::TextBuffer> ptextbuffer;
   Gtk::TextView* pdialog_package_textview_;
+  Glib::RefPtr<Gtk::TextBuffer::TagTable> tagTable;
+  Glib::RefPtr<Gtk::TextBuffer::Tag> tagFront;
+  Glib::RefPtr<Gtk::TextBuffer::Tag> tagBack;
 };
 
 inline void

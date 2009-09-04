@@ -28,6 +28,7 @@
 #include"dialog-creation-package.h"
 #include"control-system.h"
 #include"dialog-package.h"
+#include"main.h"
 
 DialogCreationPackage::DialogCreationPackage (void)
 {
@@ -91,6 +92,11 @@ DialogCreationPackage::dialog_creation_package_save (void)
   //Add response buttons the the dialog:
   dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
   dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_OK);
+
+  //Icon
+  Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
+    (ICONS_ETANGOCARDS_32);
+  dialog.set_icon (icon);
 
  int result = dialog.run();
 

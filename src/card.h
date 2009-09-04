@@ -36,6 +36,7 @@ public:
   const Glib::ustring& show (void) const;
   const Glib::ustring& front (void) const;
   const Glib::ustring& back (void) const;
+  bool is_front (void) const;
 private:
   mutable bool is_front_;
   Glib::ustring front_;
@@ -64,5 +65,12 @@ const Glib::ustring&
 Card::back (void) const
 {
   return back_;
+}
+
+inline
+bool
+Card::is_front (void) const
+{
+  return is_front_;
 }
 #endif

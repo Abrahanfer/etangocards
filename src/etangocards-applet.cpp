@@ -28,6 +28,7 @@
 #include"etangocards-applet.h"
 #include"control-system.h"
 #include"dialog-creation-package.h"
+#include"main.h"
 
 ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
   Gnome::Panel::Applet (castitem)
@@ -140,6 +141,11 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
   filter_any.set_name("Any files");
   filter_any.add_pattern("*");
   dialog.add_filter(filter_any);
+
+  //Icon
+  Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
+    (ICONS_ETANGOCARDS_32);
+  dialog.set_icon (icon);
 
   //Show the dialog and wait for a user response:
   int result = dialog.run();

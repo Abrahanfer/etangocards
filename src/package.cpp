@@ -143,5 +143,5 @@ Package::serialization (void)
       nodeChild->set_attribute ("back", i->second.back ());
     }
 
-  document.write_to_file_formatted (path_);
+  document.write_to_file_formatted (path_, "UTF-8");
 }

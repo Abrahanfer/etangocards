@@ -99,13 +99,22 @@ DialogPackage::DialogPackage (Package *pkg):
 
   ptextbuffer =
     Gtk::TextBuffer::create ();
+
+  tagFront = ptextbuffer->create_tag ();
+  tagBack = ptextbuffer->create_tag ();
+
+  tagFront->property_size_points () = 16;
+  tagBack->property_size_points () = 12;
   try
     {
-      ptextbuffer->set_text (pkg_->showInitCard ().front ());
+      ptextbuffer->set_text ("\n" + pkg_->showInitCard ().front ());
     }
   catch (Package::BadIndexCardsException bice)
     {//TODO, exception in dialog
     }
+  ptextbuffer->apply_tag (tagFront, ptextbuffer->begin (), 
+			  ptextbuffer->end ());
+  tagTable =  ptextbuffer->get_tag_table ();
   pdialog_package_textview_ = 0;
   pdialog_package_->get_widget ("dialog_package_textview",
 				pdialog_package_textview_);
@@ -140,12 +149,14 @@ DialogPackage::dialog_package_prev_card (void) throw ()
 {
   try
     {
-      ptextbuffer->set_text (pkg_->showPrevCard ().front ());
+      ptextbuffer->set_text ("\n" + pkg_->showPrevCard ().front ());
     }
   catch (Package::BeginPackageException bpe) 
     {
       return;
     }
+  ptextbuffer->apply_tag (tagFront, ptextbuffer->begin (), 
+			  ptextbuffer->end ());
   std::ostringstream oss1;
 
   oss1 << pkg_->index_cards ();
@@ -157,12 +168,14 @@ DialogPackage::dialog_package_next_card (void) throw ()
 {
   try
     {
-      ptextbuffer->set_text (pkg_->showNextCard ().front ());
+      ptextbuffer->set_text ("\n" + pkg_->showNextCard ().front ());
     }
   catch (Package::EndPackageException epe) 
     {
       return;
     }
+  ptextbuffer->apply_tag (tagFront, ptextbuffer->begin (), 
+			  ptextbuffer->end ());
   std::ostringstream oss1;
 
   oss1 << pkg_->index_cards ();
@@ -172,7 +185,18 @@ DialogPackage::dialog_package_next_card (void) throw ()
 void
 DialogPackage::dialog_package_show (void) throw ()
 {
-  ptextbuffer->set_text (pkg_->showThisCard ().show ());
+  ptextbuffer->set_text ("\n" + pkg_->showThisCard ().show ());
+
+  if (pkg_->showThisCard ().is_front ())
+    {
+      ptextbuffer->apply_tag (tagFront, ptextbuffer->begin (), 
+			      ptextbuffer->end ());
+    }
+  else
+    {
+      ptextbuffer->apply_tag (tagBack, ptextbuffer->begin (), 
+			      ptextbuffer->end ());
+    }
 }
 
 void
