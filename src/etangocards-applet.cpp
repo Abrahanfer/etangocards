@@ -65,14 +65,11 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
     };
 
   setup_menu (xml_popup, menu_verb, this);
-  
-  //  Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file 
-  //(ICONS_ETANGOCARDS_32);
 
   Gtk::Image *picon = new Gtk::Image(ICONS_ETANGOCARDS_32);
-  add(*picon);
+  add (*picon);
 
-  //  set_flags (Gnome::Panel::APPLET_EXPAND_MINOR);
+  set_flags (Gnome::Panel::APPLET_EXPAND_MINOR);
   //Recuperation of lastest session
   xmlpp::DomParser parser;
   try
@@ -125,17 +122,11 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
 
   //Add filters, so that only certain file types can be selected:
 
-  Gtk::FileFilter filter_text;
-  filter_text.set_name("Text files");
-  filter_text.add_mime_type("text/plain");
-  dialog.add_filter(filter_text);
+  Gtk::FileFilter filter_xml;
+  filter_xml.set_name("Xml files");
+  filter_xml.add_mime_type("application/xml");
+  dialog.add_filter(filter_xml);
 
-  Gtk::FileFilter filter_cpp;
-  filter_cpp.set_name("C/C++ files");
-  filter_cpp.add_mime_type("text/x-c");
-  filter_cpp.add_mime_type("text/x-c++");
-  filter_cpp.add_mime_type("text/x-c-header");
-  dialog.add_filter(filter_cpp);
 
   Gtk::FileFilter filter_any;
   filter_any.set_name("Any files");
@@ -146,6 +137,8 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
   Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
     (ICONS_ETANGOCARDS_32);
   dialog.set_icon (icon);
+
+  dialog.set_current_folder (Glib::get_home_dir ());
 
   //Show the dialog and wait for a user response:
   int result = dialog.run();

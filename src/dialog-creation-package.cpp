@@ -98,6 +98,21 @@ DialogCreationPackage::dialog_creation_package_save (void)
     (ICONS_ETANGOCARDS_32);
   dialog.set_icon (icon);
 
+//Add filters, so that only certain file types can be selected:
+
+  Gtk::FileFilter filter_xml;
+  filter_xml.set_name("Xml files");
+  filter_xml.add_mime_type("application/xml");
+  dialog.add_filter(filter_xml);
+
+
+  Gtk::FileFilter filter_any;
+  filter_any.set_name("Any files");
+  filter_any.add_pattern("*");
+  dialog.add_filter(filter_any);
+
+  dialog.set_current_folder (Glib::get_home_dir ());
+
  int result = dialog.run();
 
  //Handle the response:

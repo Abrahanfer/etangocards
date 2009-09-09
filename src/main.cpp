@@ -180,12 +180,11 @@ main (int argc, char* argv[])
   }
   //delete name;
   */
-  Gnome::Panel::init("TestPanelmm", "0.1", argc, argv);
+  Gnome::Panel::init("EtangoCards", "0.0.1", argc, argv);
   
   try
     {
       int returncode = Gnome::Panel::factory_main<ETangoCardsApplet>("OAFIID:ETangoCardsApplet_Factory");
-      cout << "hola" << endl;
       return returncode;
     }
   catch(const Glib::Error& ex)
