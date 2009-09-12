@@ -1,5 +1,5 @@
 dnl 
-AC_INIT([etangocards], [0.0.1], [abrahanfer@gmail.com])
+AC_INIT([etangocards], [0.0.2], [abrahanfer@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 

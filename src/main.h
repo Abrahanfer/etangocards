@@ -28,6 +28,8 @@
 #define FILE_UI_DIALOG_NEW UI_DIR G_DIR_SEPARATOR_S "dialog_new.ui"
 #define FILE_UI_DIALOG_CREATION_PACKAGE \
   UI_DIR G_DIR_SEPARATOR_S "dialog_creation_package.ui"
+#define FILE_UI_DIALOG_PREFERENCES UI_DIR G_DIR_SEPARATOR_S \
+  "dialog_preferences.ui"
 
 #define ICONS_DIR DATADIR G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S "icons"
 

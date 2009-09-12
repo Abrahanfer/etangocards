@@ -5,7 +5,8 @@ uidir   = $(datadir)/$(PACKAGE)/ui
 
 ui_DATA = data/ui/dialog_package.ui \
 	  data/ui/dialog_new.ui	    \
-	  data/ui/dialog_creation_package.ui
+	  data/ui/dialog_creation_package.ui\
+	  data/ui/dialog_preferences.ui
 
 iconsdir = $(datadir)/$(PACKAGE)/icons
 

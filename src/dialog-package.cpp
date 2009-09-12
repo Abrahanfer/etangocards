@@ -38,8 +38,6 @@ DialogPackage::DialogPackage (Package *pkg):
 {
   pdialog_package_ = 
     Gtk::Builder::create_from_file (FILE_UI_DIALOG_PACKAGE);
-  if (!pdialog_package_)
-    std::cerr << "La mierda es clara" << std::endl;
 
 
   pdialog_package_lbl1_ = 0;

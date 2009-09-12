@@ -30,6 +30,9 @@
 #include"dialog-creation-package.h"
 #include"main.h"
 
+sigc::slot<bool> ETangoCardsApplet::slot_timeout;
+int ETangoCardsApplet::timeout_value = 15;
+
 ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
   Gnome::Panel::Applet (castitem)
 {
@@ -49,6 +52,10 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
     "   <menuitem name='Show Packages Item'\n"
     "             verb='ShowPackages' _label='_Show Packages...'\n"
     "             />\n"
+    "   <separator/>"
+    "   <menuitem name='preferences' verb='preferences' _label='_Preferences'"
+    "             pixtype='stock' pixname='gtk-preferences'\n"
+    "             />\n"
     "</popup>\n";
 
   static const BonoboUIVerb menu_verb[] = 
@@ -61,6 +68,8 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
 		      &ETangoCardsApplet::applet_hide_packages),
       BONOBO_UI_VERB ("ShowPackages", 
 		      &ETangoCardsApplet::applet_show_packages),
+      BONOBO_UI_VERB ("preferences",
+		      &ETangoCardsApplet::applet_preferences),
       BONOBO_UI_VERB_END
     };
 
@@ -83,6 +92,9 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
     {
       const xmlpp::Element* root = 
 	parser.get_document ()->get_root_node ();
+      std::istringstream iss 
+	(root->get_attribute_value ("timeout"));
+      iss >> timeout_value;
       xmlpp::Node::NodeList nodelist = root->get_children (); 
       xmlpp::Node::NodeList::const_iterator i;
       for(i = nodelist.begin (); i != nodelist.end (); ++i)
@@ -97,8 +109,9 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
 	      ControlSystem::LoadPackage (path, index_cards);
 	    }
 	}
-    }  
-
+    }
+  //Configure the timeout
+  applet_timeout (timeout_value);
 
   show_all ();
 }
@@ -166,3 +179,20 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
     }
 }
 
+void
+ETangoCardsApplet::applet_timeout (int timeout_value) throw ()
+{
+  if (timeout_value != 0)
+    {
+      //	slot_timeout.disconnect ();
+      sigc::slot<bool> slot = sigc::ptr_fun
+	(&ETangoCardsApplet::show_packages_timeout);
+      Glib::signal_timeout ().connect
+	(slot_timeout, 1000 * 60 * timeout_value);
+      slot_timeout = slot;
+    }
+  else
+    {
+      slot_timeout.disconnect ();
+    }
+}

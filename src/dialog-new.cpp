@@ -55,6 +55,10 @@ DialogNew::DialogNew (Package* pkg, const DialogPackage* d_pkg):
 		   *this,
 		   &DialogNew::dialog_new_information));
 
+  pdialog_new_->get_widget ("dialog_new_lbl",
+			    pdialog_new_lbl_);
+  pdialog_new_lbl_->set_label ("front");
+
   Glib::RefPtr<Gtk::TextBuffer> pdialog_new_textbuffer_ = 
     Gtk::TextBuffer::create ();
 
@@ -102,6 +106,7 @@ DialogNew::dialog_new_information (void)
   if (is_front_)
     {
       front_ = pdialog_new_textbuffer_->get_text ();
+      pdialog_new_lbl_->set_label ("back");
       is_front_ = false;
       pdialog_new_textbuffer_->set_text (back_);
       pdialog_new_textview_->set_buffer (pdialog_new_textbuffer_);
@@ -109,6 +114,7 @@ DialogNew::dialog_new_information (void)
   else
     {
       back_ = pdialog_new_textbuffer_->get_text ();
+     pdialog_new_lbl_->set_label ("front");
       is_front_ = true;
       pdialog_new_textbuffer_->set_text (front_);
       pdialog_new_textview_->set_buffer (pdialog_new_textbuffer_);

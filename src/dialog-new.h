@@ -27,6 +27,7 @@
 #include<gtkmm/window.h>
 #include<gtkmm/toolbutton.h>
 #include<gtkmm/textview.h>
+#include<gtkmm/label.h>
 #include"package.h"
 #include"main.h"
 
@@ -48,7 +49,8 @@ private:
   Gtk::Window* pdialog_new_window_;
   Gtk::ToolButton* pdialog_new_save_button_;
   Gtk::ToolButton* pdialog_new_information_button_;
-  Gtk::TextView* pdialog_new_textview_; 
+  Gtk::TextView* pdialog_new_textview_;
+  Gtk::Label* pdialog_new_lbl_; 
 };
 
 #endif //DIALOG_NEW_H_

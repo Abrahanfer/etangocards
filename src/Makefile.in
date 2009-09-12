@@ -49,7 +49,8 @@ am_etangocards_OBJECTS = etangocards-main.$(OBJEXT) \
 	etangocards-dialog-package.$(OBJEXT) \
 	etangocards-dialog-new.$(OBJEXT) \
 	etangocards-etangocards-applet.$(OBJEXT) \
-	etangocards-dialog-creation-package.$(OBJEXT)
+	etangocards-dialog-creation-package.$(OBJEXT) \
+	etangocards-dialog-preferences.$(OBJEXT)
 etangocards_OBJECTS = $(am_etangocards_OBJECTS)
 etangocards_LDADD = $(LDADD)
 etangocards_LINK = $(CXXLD) $(etangocards_CXXFLAGS) $(CXXFLAGS) \
@@ -180,7 +181,8 @@ etangocards_SOURCES = main.cpp main.h card.cpp card.h package.cpp \
 	package.h control-system.cpp control-system.h dialog-package.h \
 	dialog-package.cpp dialog-new.h dialog-new.cpp \
 	etangocards-applet.h etangocards-applet.cpp \
-	dialog-creation-package.h dialog-creation-package.cpp	
+	dialog-creation-package.h dialog-creation-package.cpp \
+	dialog-preferences.h dialog-preferences.cpp
 
 etangocards_LDFLAGS = @LIBXMLPP_LIBS@ @GTKMM_LIBS@ @LIBBONOBO_LIBS@ \
 	@LIBPANELAPPLETMM_LIBS@ 
@@ -259,6 +261,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-creation-package.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-new.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-package.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-preferences.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-etangocards-applet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-package.Po@am__quote@
@@ -388,6 +391,20 @@ etangocards-dialog-creation-package.obj: dialog-creation-package.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-creation-package.cpp' object='etangocards-dialog-creation-package.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-creation-package.obj `if test -f 'dialog-creation-package.cpp'; then $(CYGPATH_W) 'dialog-creation-package.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-creation-package.cpp'; fi`
+
+etangocards-dialog-preferences.o: dialog-preferences.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-preferences.o -MD -MP -MF $(DEPDIR)/etangocards-dialog-preferences.Tpo -c -o etangocards-dialog-preferences.o `test -f 'dialog-preferences.cpp' || echo '$(srcdir)/'`dialog-preferences.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-preferences.Tpo $(DEPDIR)/etangocards-dialog-preferences.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-preferences.cpp' object='etangocards-dialog-preferences.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-preferences.o `test -f 'dialog-preferences.cpp' || echo '$(srcdir)/'`dialog-preferences.cpp
+
+etangocards-dialog-preferences.obj: dialog-preferences.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-preferences.obj -MD -MP -MF $(DEPDIR)/etangocards-dialog-preferences.Tpo -c -o etangocards-dialog-preferences.obj `if test -f 'dialog-preferences.cpp'; then $(CYGPATH_W) 'dialog-preferences.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-preferences.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-preferences.Tpo $(DEPDIR)/etangocards-dialog-preferences.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-preferences.cpp' object='etangocards-dialog-preferences.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-preferences.obj `if test -f 'dialog-preferences.cpp'; then $(CYGPATH_W) 'dialog-preferences.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-preferences.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

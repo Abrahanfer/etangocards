@@ -27,6 +27,7 @@
 #include"dialog-package.h"
 #include"control-system.h"
 #include"package.h"
+#include"etangocards-applet.h"
 
 std::string ControlSystem::path_(Glib::get_home_dir () + "/.etangocards");
 
@@ -169,9 +170,12 @@ void
 ControlSystem::serializeConfigurationFile (void) throw ()
 {
   xmlpp::Document configurationFile;
+  std::stringstream oss;
+  oss << ETangoCardsApplet::get_timeout ();
 
   xmlpp::Element* nodeRoot = 
     configurationFile.create_root_node ("Packages");
+  nodeRoot->set_attribute ("timeout",oss.str ());
   Packages::const_iterator i;
   for (i = packages.begin (); i != packages.end (); ++i)
     {
