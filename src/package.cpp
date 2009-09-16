@@ -51,6 +51,10 @@ Package::Package (const std::string& pathname, unsigned int index_cards,
       std::istringstream iss_num_cards(num_cards);
       iss_num_cards >> num_cards_;
       index_cards_ = index_cards;
+      category_ = root->get_attribute_value ("category");
+      Glib::ustring score (root->get_attribute_value ("score"));
+      std::istringstream iss_score(score);
+      iss_score >> score_;
       xmlpp::Node::NodeList nodelist = root->get_children (); 
       xmlpp::Node::NodeList::const_iterator i;
       for(i = nodelist.begin (); i != nodelist.end (); ++i)
@@ -129,12 +133,15 @@ Package::serialization (void)
   throw ()
 {
   xmlpp::Document document;
-  std::ostringstream o1;
+  std::ostringstream o1, o2;
 
   o1 << num_cards_;
+  o2 << score_;
   xmlpp::Element* nodeRoot = document.create_root_node ("Package");
   nodeRoot->set_attribute ("name", name_);
   nodeRoot->set_attribute ("num_cards", o1.str ());
+  nodeRoot->set_attribute ("category", category_);
+  nodeRoot->set_attribute ("score", o2.str ());
   Cards::const_iterator i;
   for (i = cards.begin (); i != cards.end (); ++i)
     {
@@ -144,4 +151,10 @@ Package::serialization (void)
     }
 
   document.write_to_file_formatted (path_, "UTF-8");
+}
+
+const Card&
+Package::operator[] (unsigned int i) throw ()
+{
+  return cards[i];
 }

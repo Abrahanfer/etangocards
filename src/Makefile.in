@@ -50,7 +50,12 @@ am_etangocards_OBJECTS = etangocards-main.$(OBJEXT) \
 	etangocards-dialog-new.$(OBJEXT) \
 	etangocards-etangocards-applet.$(OBJEXT) \
 	etangocards-dialog-creation-package.$(OBJEXT) \
-	etangocards-dialog-preferences.$(OBJEXT)
+	etangocards-dialog-preferences.$(OBJEXT) \
+	etangocards-quiz.$(OBJEXT) \
+	etangocards-dialog-quiz-front.$(OBJEXT) \
+	etangocards-dialog-quiz-answer.$(OBJEXT) \
+	etangocards-dialog-quiz-back.$(OBJEXT) \
+	etangocards-dialog-quiz-result.$(OBJEXT)
 etangocards_OBJECTS = $(am_etangocards_OBJECTS)
 etangocards_LDADD = $(LDADD)
 etangocards_LINK = $(CXXLD) $(etangocards_CXXFLAGS) $(CXXFLAGS) \
@@ -182,7 +187,11 @@ etangocards_SOURCES = main.cpp main.h card.cpp card.h package.cpp \
 	dialog-package.cpp dialog-new.h dialog-new.cpp \
 	etangocards-applet.h etangocards-applet.cpp \
 	dialog-creation-package.h dialog-creation-package.cpp \
-	dialog-preferences.h dialog-preferences.cpp
+	dialog-preferences.h dialog-preferences.cpp quiz.cpp quiz.h\
+	dialog-quiz-front.h dialog-quiz-front.cpp \
+	dialog-quiz-answer.h dialog-quiz-answer.cpp\
+	dialog-quiz-back.h dialog-quiz-back.cpp\
+	dialog-quiz-result.h dialog-quiz-result.cpp
 
 etangocards_LDFLAGS = @LIBXMLPP_LIBS@ @GTKMM_LIBS@ @LIBBONOBO_LIBS@ \
 	@LIBPANELAPPLETMM_LIBS@ 
@@ -262,9 +271,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-new.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-package.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-preferences.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-quiz-answer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-quiz-back.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-quiz-front.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-dialog-quiz-result.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-etangocards-applet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-package.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/etangocards-quiz.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -405,6 +419,76 @@ etangocards-dialog-preferences.obj: dialog-preferences.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-preferences.cpp' object='etangocards-dialog-preferences.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-preferences.obj `if test -f 'dialog-preferences.cpp'; then $(CYGPATH_W) 'dialog-preferences.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-preferences.cpp'; fi`
+
+etangocards-quiz.o: quiz.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-quiz.o -MD -MP -MF $(DEPDIR)/etangocards-quiz.Tpo -c -o etangocards-quiz.o `test -f 'quiz.cpp' || echo '$(srcdir)/'`quiz.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-quiz.Tpo $(DEPDIR)/etangocards-quiz.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='quiz.cpp' object='etangocards-quiz.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-quiz.o `test -f 'quiz.cpp' || echo '$(srcdir)/'`quiz.cpp
+
+etangocards-quiz.obj: quiz.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-quiz.obj -MD -MP -MF $(DEPDIR)/etangocards-quiz.Tpo -c -o etangocards-quiz.obj `if test -f 'quiz.cpp'; then $(CYGPATH_W) 'quiz.cpp'; else $(CYGPATH_W) '$(srcdir)/quiz.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-quiz.Tpo $(DEPDIR)/etangocards-quiz.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='quiz.cpp' object='etangocards-quiz.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-quiz.obj `if test -f 'quiz.cpp'; then $(CYGPATH_W) 'quiz.cpp'; else $(CYGPATH_W) '$(srcdir)/quiz.cpp'; fi`
+
+etangocards-dialog-quiz-front.o: dialog-quiz-front.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-front.o -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-front.Tpo -c -o etangocards-dialog-quiz-front.o `test -f 'dialog-quiz-front.cpp' || echo '$(srcdir)/'`dialog-quiz-front.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-front.Tpo $(DEPDIR)/etangocards-dialog-quiz-front.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-front.cpp' object='etangocards-dialog-quiz-front.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-front.o `test -f 'dialog-quiz-front.cpp' || echo '$(srcdir)/'`dialog-quiz-front.cpp
+
+etangocards-dialog-quiz-front.obj: dialog-quiz-front.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-front.obj -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-front.Tpo -c -o etangocards-dialog-quiz-front.obj `if test -f 'dialog-quiz-front.cpp'; then $(CYGPATH_W) 'dialog-quiz-front.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-front.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-front.Tpo $(DEPDIR)/etangocards-dialog-quiz-front.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-front.cpp' object='etangocards-dialog-quiz-front.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-front.obj `if test -f 'dialog-quiz-front.cpp'; then $(CYGPATH_W) 'dialog-quiz-front.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-front.cpp'; fi`
+
+etangocards-dialog-quiz-answer.o: dialog-quiz-answer.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-answer.o -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-answer.Tpo -c -o etangocards-dialog-quiz-answer.o `test -f 'dialog-quiz-answer.cpp' || echo '$(srcdir)/'`dialog-quiz-answer.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-answer.Tpo $(DEPDIR)/etangocards-dialog-quiz-answer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-answer.cpp' object='etangocards-dialog-quiz-answer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-answer.o `test -f 'dialog-quiz-answer.cpp' || echo '$(srcdir)/'`dialog-quiz-answer.cpp
+
+etangocards-dialog-quiz-answer.obj: dialog-quiz-answer.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-answer.obj -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-answer.Tpo -c -o etangocards-dialog-quiz-answer.obj `if test -f 'dialog-quiz-answer.cpp'; then $(CYGPATH_W) 'dialog-quiz-answer.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-answer.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-answer.Tpo $(DEPDIR)/etangocards-dialog-quiz-answer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-answer.cpp' object='etangocards-dialog-quiz-answer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-answer.obj `if test -f 'dialog-quiz-answer.cpp'; then $(CYGPATH_W) 'dialog-quiz-answer.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-answer.cpp'; fi`
+
+etangocards-dialog-quiz-back.o: dialog-quiz-back.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-back.o -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-back.Tpo -c -o etangocards-dialog-quiz-back.o `test -f 'dialog-quiz-back.cpp' || echo '$(srcdir)/'`dialog-quiz-back.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-back.Tpo $(DEPDIR)/etangocards-dialog-quiz-back.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-back.cpp' object='etangocards-dialog-quiz-back.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-back.o `test -f 'dialog-quiz-back.cpp' || echo '$(srcdir)/'`dialog-quiz-back.cpp
+
+etangocards-dialog-quiz-back.obj: dialog-quiz-back.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-back.obj -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-back.Tpo -c -o etangocards-dialog-quiz-back.obj `if test -f 'dialog-quiz-back.cpp'; then $(CYGPATH_W) 'dialog-quiz-back.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-back.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-back.Tpo $(DEPDIR)/etangocards-dialog-quiz-back.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-back.cpp' object='etangocards-dialog-quiz-back.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-back.obj `if test -f 'dialog-quiz-back.cpp'; then $(CYGPATH_W) 'dialog-quiz-back.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-back.cpp'; fi`
+
+etangocards-dialog-quiz-result.o: dialog-quiz-result.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-result.o -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-result.Tpo -c -o etangocards-dialog-quiz-result.o `test -f 'dialog-quiz-result.cpp' || echo '$(srcdir)/'`dialog-quiz-result.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-result.Tpo $(DEPDIR)/etangocards-dialog-quiz-result.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-result.cpp' object='etangocards-dialog-quiz-result.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-result.o `test -f 'dialog-quiz-result.cpp' || echo '$(srcdir)/'`dialog-quiz-result.cpp
+
+etangocards-dialog-quiz-result.obj: dialog-quiz-result.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -MT etangocards-dialog-quiz-result.obj -MD -MP -MF $(DEPDIR)/etangocards-dialog-quiz-result.Tpo -c -o etangocards-dialog-quiz-result.obj `if test -f 'dialog-quiz-result.cpp'; then $(CYGPATH_W) 'dialog-quiz-result.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-result.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/etangocards-dialog-quiz-result.Tpo $(DEPDIR)/etangocards-dialog-quiz-result.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='dialog-quiz-result.cpp' object='etangocards-dialog-quiz-result.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(etangocards_CXXFLAGS) $(CXXFLAGS) -c -o etangocards-dialog-quiz-result.obj `if test -f 'dialog-quiz-result.cpp'; then $(CYGPATH_W) 'dialog-quiz-result.cpp'; else $(CYGPATH_W) '$(srcdir)/dialog-quiz-result.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

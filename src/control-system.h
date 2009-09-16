@@ -29,6 +29,7 @@ class Package;
 
 class ControlSystem {
 public:
+  typedef std::map<Glib::ustring, double> Categories;
   typedef std::map<Glib::ustring, Package *> Packages;
   class RepeatPackageException {
   public:
@@ -62,6 +63,7 @@ public:
   static void serializeConfigurationFile (void) throw ();
   ~ControlSystem (void);
   static std::string path_;
+  static Categories categories;
 private:
   static Packages packages;
 };

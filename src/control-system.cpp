@@ -30,6 +30,7 @@
 #include"etangocards-applet.h"
 
 std::string ControlSystem::path_(Glib::get_home_dir () + "/.etangocards");
+ControlSystem::Categories ControlSystem::categories;
 
 ControlSystem::Packages ControlSystem::packages;
 
@@ -184,6 +185,16 @@ ControlSystem::serializeConfigurationFile (void) throw ()
       oss << i->second->index_cards ();
       nodeChild->set_attribute ("index_cards", oss.str ());
       nodeChild->set_attribute ("path", i->second->path ());
+    }
+  Categories::const_iterator j;
+  xmlpp::Element* nodeCategories = nodeRoot->add_child ("Categories");
+  for (j = categories.begin (); j != categories.end (); ++j)
+    {
+      xmlpp::Element* nodeCategory = nodeCategories->add_child ("Category");
+      nodeCategory->set_attribute ("category", j->first);
+      std::ostringstream oss;
+      oss << j->second;
+      nodeCategory->set_attribute ("score", oss.str ());
     }
 
   configurationFile.write_to_file_formatted (path_);

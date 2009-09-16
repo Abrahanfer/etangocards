@@ -67,9 +67,14 @@ public:
   unsigned int index_cards () const throw ();
   const Glib::ustring& path () const throw ();
   void serialization () throw ();
+  const Card& operator[] (unsigned int) throw ();
+  const Glib::ustring& category (void) const throw ();
+  unsigned int score (void) const throw ();
 private:
   Glib::ustring path_;
   Glib::ustring name_;
+  Glib::ustring category_;
+  unsigned int score_;
   unsigned int num_cards_;
   unsigned int index_cards_;
   Cards cards;
@@ -140,6 +145,18 @@ inline const Glib::ustring&
 Package::path () const throw ()
 {
   return path_;
+}
+
+inline const Glib::ustring&
+Package::category (void) const throw ()
+{
+  return category_;
+}
+
+inline unsigned int
+Package::score (void) const throw ()
+{
+  return score_;
 }
 
 #endif //PACKAGE_H_

@@ -30,6 +30,14 @@
   UI_DIR G_DIR_SEPARATOR_S "dialog_creation_package.ui"
 #define FILE_UI_DIALOG_PREFERENCES UI_DIR G_DIR_SEPARATOR_S \
   "dialog_preferences.ui"
+#define FILE_UI_DIALOG_QUIZ_FRONT UI_DIR G_DIR_SEPARATOR_S \
+  "dialog_quiz_front.ui"
+#define FILE_UI_DIALOG_QUIZ_ANSWER UI_DIR G_DIR_SEPARATOR_S \
+  "dialog_quiz_answer.ui"
+#define FILE_UI_DIALOG_QUIZ_BACK UI_DIR G_DIR_SEPARATOR_S \
+  "dialog_quiz_back.ui"
+#define FILE_UI_DIALOG_QUIZ_RESULT UI_DIR G_DIR_SEPARATOR_S \
+  "dialog_quiz_result.ui"
 
 #define ICONS_DIR DATADIR G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S "icons"
 

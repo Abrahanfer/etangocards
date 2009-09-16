@@ -29,6 +29,7 @@
 #include"control-system.h"
 #include"dialog-creation-package.h"
 #include"main.h"
+#include"quiz.h"
 
 sigc::slot<bool> ETangoCardsApplet::slot_timeout;
 int ETangoCardsApplet::timeout_value = 15;
@@ -47,10 +48,14 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
     "             verb='NewPackage' _label='_New Package...'\n"
     "             pixtype='stock' pixname='gtk-new'/>\n"
     "   <menuitem name='Hide Packages Item'\n"
-    "             verb='HidePackages' _label='Hi_de Packages...'\n"
+    "             verb='HidePackages' _label='Hi_de Packages'\n"
     "             />\n"
     "   <menuitem name='Show Packages Item'\n"
-    "             verb='ShowPackages' _label='_Show Packages...'\n"
+    "             verb='ShowPackages' _label='_Show Packages'\n"
+    "             />\n"
+    "   <menuitem name='Quiz Mode Item'\n"
+    "             verb='QuizMode' _label='_Quiz Mode'\n" 
+    "             pixtype='stock' pixname='gtk-execute'\n"
     "             />\n"
     "   <separator/>"
     "   <menuitem name='preferences' verb='preferences' _label='_Preferences'"
@@ -68,6 +73,8 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
 		      &ETangoCardsApplet::applet_hide_packages),
       BONOBO_UI_VERB ("ShowPackages", 
 		      &ETangoCardsApplet::applet_show_packages),
+      BONOBO_UI_VERB ("QuizMode",
+		      &ETangoCardsApplet::applet_quiz_mode),
       BONOBO_UI_VERB ("preferences",
 		      &ETangoCardsApplet::applet_preferences),
       BONOBO_UI_VERB_END
@@ -86,7 +93,7 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
       parser.parse_file (ControlSystem::path_);
     }
   catch (xmlpp::internal_error e)
-    {
+    {//TODO: bad package
     }
   if (parser)
     {
@@ -100,13 +107,36 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
       for(i = nodelist.begin (); i != nodelist.end (); ++i)
 	{
 	  xmlpp::Element *node = dynamic_cast<xmlpp::Element*>(*i);
-	  if(node)
+	  if(node->get_name () == "Package")
 	    {
 	      std::istringstream iss
 		(node->get_attribute_value ("index_cards"));
 	      iss >> index_cards;
 	      Glib::ustring path(node->get_attribute_value ("path"));
 	      ControlSystem::LoadPackage (path, index_cards);
+	    }
+	  else
+	    {
+	      if (node->get_name () == "Categories")
+		{
+		  xmlpp::Node::NodeList nodelist = node->get_children (); 
+		  xmlpp::Node::NodeList::const_iterator i;
+		  for (i = nodelist.begin (); i != nodelist.end (); ++i)
+		    {
+		      xmlpp::Element *node = 
+			dynamic_cast<xmlpp::Element*>(*i);
+		      if (node)
+			{
+			  Glib::ustring name_category 
+			    (node->get_attribute_value ("category"));
+			  std::istringstream iss
+			    (node->get_attribute_value ("score"));
+			  double score;
+			  iss >> score;
+			  ControlSystem::categories[name_category] = score;
+			}
+		    }
+		}
 	    }
 	}
     }
@@ -190,9 +220,67 @@ ETangoCardsApplet::applet_timeout (int timeout_value) throw ()
       Glib::signal_timeout ().connect
 	(slot_timeout, 1000 * 60 * timeout_value);
       slot_timeout = slot;
+      slot.disconnect ();
     }
   else
     {
       slot_timeout.disconnect ();
+    }
+}
+
+void
+ETangoCardsApplet::applet_quiz_mode (BonoboUIComponent *, 
+				     void *, const char *)
+{
+  Gtk::FileChooserDialog dialog("Please choose a package",
+				Gtk::FILE_CHOOSER_ACTION_OPEN);
+  
+
+  //Add response buttons the the dialog:
+  dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+  dialog.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_OK);
+
+  //Add filters, so that only certain file types can be selected:
+
+  Gtk::FileFilter filter_xml;
+  filter_xml.set_name("Xml files");
+  filter_xml.add_mime_type("application/xml");
+  dialog.add_filter(filter_xml);
+
+
+  Gtk::FileFilter filter_any;
+  filter_any.set_name("Any files");
+  filter_any.add_pattern("*");
+  dialog.add_filter(filter_any);
+
+  //Icon
+  Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
+    (ICONS_ETANGOCARDS_32);
+  dialog.set_icon (icon);
+
+  dialog.set_current_folder (Glib::get_home_dir ());
+
+  //Show the dialog and wait for a user response:
+  int result = dialog.run();
+   
+  //Handle the response:
+  switch(result)
+    {
+    case(Gtk::RESPONSE_OK):
+      {
+
+	//Notice that this is a std::string, not a Glib::ustring.
+	std::string filename = dialog.get_filename();
+	new Quiz(filename);
+	break;
+      }
+    case(Gtk::RESPONSE_CANCEL):
+      {
+	break;
+      }
+    default:
+      {
+	break;
+      }
     }
 }
