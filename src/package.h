@@ -50,7 +50,8 @@ public:
   typedef std::map<unsigned int, Card> Cards;
   Package (const Glib::ustring&)
     throw ();
-  Package (const Glib::ustring&, const Glib::ustring&)
+  Package (const Glib::ustring&, const Glib::ustring&, const Glib::ustring&,
+	   const Glib::ustring&, int)
     throw ();
   Package (const std::string&, unsigned int, bool) 
     throw (NotFoundPackageException, BadPackageFileException);
@@ -114,12 +115,6 @@ inline
 Package::Package (const Glib::ustring& name)
   throw ():
   name_ (name)
-{}
-
-inline
-Package::Package (const Glib::ustring& name, const Glib::ustring& path)
-  throw ():
-  path_ (path), name_ (name), num_cards_ (0), index_cards_ (0)
 {}
 
 inline const Card&

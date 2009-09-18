@@ -23,7 +23,11 @@
 #ifndef DIALOG_CREATION_PACKAGE_H_
 #define DIALOG_CREATION_PACKAGE_H_
 
+#include<gtkmm/builder.h>
 #include<gtkmm/window.h>
+#include<gtkmm/entry.h>
+#include<gtkmm/combobox.h>
+#include<gtkmm/liststore.h>
 #include<gtkmm/button.h>
 #include"main.h"
 
@@ -38,6 +42,14 @@ private:
   Gtk::Button* pdialog_creation_package_btn_cancel_;
   Gtk::Button* pdialog_creation_package_btn_save_;
   Gtk::Entry* pdialog_creation_package_entry_;
+  Gtk::Entry* pdialog_creation_package_category_;
+  Gtk::Entry* pdialog_creation_package_score_;
+  Gtk::ComboBox* pdialog_creation_package_comboBox1_;
+  Gtk::TreeModel::ColumnRecord* pdialog_creation_package_treeModel1_;
+  Glib::RefPtr<Gtk::ListStore> ref_treeModel1_; 
+  Gtk::ComboBox* pdialog_creation_package_comboBox2_;
+  Gtk::TreeModel::ColumnRecord* pdialog_creation_package_treeModel2_;
+  Glib::RefPtr<Gtk::ListStore> ref_treeModel2_; 
 };
 
 #endif //DIALOG_CREATION_PACKAGE_H_

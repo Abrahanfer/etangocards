@@ -19,10 +19,6 @@
  *
  */
 
-#include<gtkmm/builder.h>
-#include<gtkmm/window.h>
-#include<gtkmm/entry.h>
-#include<gtkmm/button.h>
 #include<gtkmm/filechooserdialog.h>
 #include<gtkmm/stock.h>
 #include"dialog-creation-package.h"
@@ -56,6 +52,76 @@ DialogCreationPackage::DialogCreationPackage (void)
 
   pdialog_creation_package_->get_widget ("dialog_creation_package_entry",
 					 pdialog_creation_package_entry_);
+
+  pdialog_creation_package_->get_widget ("dialog_creation_package_category",
+					 pdialog_creation_package_category_);
+
+  pdialog_creation_package_->get_widget ("dialog_creation_package_score",
+					 pdialog_creation_package_score_);
+  //Dialog Creation Package ComboBox1
+  pdialog_creation_package_->get_widget ("dialog_creation_package_comboBox1",
+					 pdialog_creation_package_comboBox1_);
+
+  pdialog_creation_package_treeModel1_ = new Gtk::TreeModel::ColumnRecord ();
+  Gtk::TreeModelColumn<Glib::ustring> m_col_times1;
+  pdialog_creation_package_treeModel1_->add (m_col_times1);
+  ref_treeModel1_ = Gtk::ListStore::create 
+    (*pdialog_creation_package_treeModel1_);
+
+  pdialog_creation_package_comboBox1_->set_model (ref_treeModel1_);
+
+  //Fill the ComboBox1's TreeModel
+  Gtk::TreeModel::Row row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range H";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range G";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range F";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range E";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range D";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range C";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range B";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range A";
+
+  row1 = *(ref_treeModel1_->append());
+  row1[m_col_times1] = "Range S";
+
+  pdialog_creation_package_comboBox1_->pack_start (m_col_times1);
+
+  pdialog_creation_package_comboBox1_->set_active (0);
+
+  //Dialog Creation Package ComboBox2
+  pdialog_creation_package_->get_widget ("dialog_creation_package_comboBox2",
+					 pdialog_creation_package_comboBox2_);
+
+  pdialog_creation_package_treeModel2_ = new Gtk::TreeModel::ColumnRecord ();
+  Gtk::TreeModelColumn<Glib::ustring> m_col_times2;
+  pdialog_creation_package_treeModel2_->add (m_col_times2);
+  ref_treeModel2_ = Gtk::ListStore::create 
+    (*pdialog_creation_package_treeModel2_);
+
+  pdialog_creation_package_comboBox2_->set_model (ref_treeModel2_);
+
+  //Fill the ComboBox2's TreeModel
+  Gtk::TreeModel::Row row2 = *(ref_treeModel2_->append());
+  row2[m_col_times2] = "Basic Type";
+
+  pdialog_creation_package_comboBox2_->pack_start (m_col_times2);
+
+  pdialog_creation_package_comboBox2_->set_active (0);
+
   //icon
   Glib::RefPtr<Gdk::Pixbuf> icon = Gdk::Pixbuf::create_from_file 
     (ICONS_ETANGOCARDS_32);
@@ -84,6 +150,13 @@ DialogCreationPackage::dialog_creation_package_save (void)
   throw ()
 {
   Glib::ustring pkg_name = pdialog_creation_package_entry_->get_text ();
+  Glib::ustring pkg_category = 
+    pdialog_creation_package_category_->get_text ();
+  Glib::ustring pkg_score = pdialog_creation_package_score_->get_text ();
+  int num_range = 
+    pdialog_creation_package_comboBox1_->get_active_row_number ();
+  /*int num_type = 
+    pdialog_creation_package_comboBox2_->get_active_row_number ();*/
 
   Gtk::FileChooserDialog dialog("Please choose a folder for save",
 				Gtk::FILE_CHOOSER_ACTION_SAVE);
@@ -123,7 +196,8 @@ DialogCreationPackage::dialog_creation_package_save (void)
 
 	//Notice that this is a std::string, not a Glib::ustring.
 	Glib::ustring filename = dialog.get_filename ();
-	Package *pkg = new Package (pkg_name, filename);
+	Package *pkg = new Package (pkg_name, filename, 
+				    pkg_category, pkg_score, num_range);
 	ControlSystem::associate (pkg);
 	pdialog_creation_package_window_->hide ();
 	DialogPackage *pdpkg = new DialogPackage (pkg);

@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include<iostream>
 #include<sstream>
 #include<map>
 #include<string>
@@ -27,6 +26,32 @@
 #include"card.h"
 
 Package::Ranges Package::ranges_;
+
+Package::Package (const Glib::ustring& name, const Glib::ustring& path,
+		  const Glib::ustring& category, const Glib::ustring& score,
+		  int range)
+  throw ():
+  path_ (path), name_ (name), category_ (category), num_cards_ (0), 
+  index_cards_ (0)
+{
+  std::istringstream iss1 (score);
+
+  iss1 >> score_;
+
+  std::map<int, Glib::ustring> map_int_range;
+
+  map_int_range.insert (std::make_pair (0, "H"));
+  map_int_range.insert (std::make_pair (1, "G"));
+  map_int_range.insert (std::make_pair (2, "F"));
+  map_int_range.insert (std::make_pair (3, "E"));
+  map_int_range.insert (std::make_pair (4, "D"));
+  map_int_range.insert (std::make_pair (5, "C"));
+  map_int_range.insert (std::make_pair (6, "B"));
+  map_int_range.insert (std::make_pair (7, "A"));
+  map_int_range.insert (std::make_pair (8, "S"));
+
+  range_ = map_int_range[range];
+}
 
 Package::Package (const std::string& pathname, unsigned int index_cards, 
 		  bool isXml)
