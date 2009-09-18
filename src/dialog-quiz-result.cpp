@@ -22,6 +22,7 @@
 #include"dialog-quiz-result.h"
 #include"main.h"
 #include"quiz.h"
+#include"control-system.h"
 
 DialogQuizResult::DialogQuizResult (const Quiz* quiz) 
   throw ():
@@ -36,18 +37,29 @@ DialogQuizResult::DialogQuizResult (const Quiz* quiz)
   pdialog_quiz_result_lbl_name_->set_label (Glib::get_user_name ());
 
   pdialog_quiz_result_->get_widget ("dialog_quiz_result_lbl_score",
-				    pdialog_quiz_result_lbl_name_);
+				    pdialog_quiz_result_lbl_score_);
 
   std::ostringstream oss1;
   oss1 << quiz_->quiz_score ();
-  pdialog_quiz_result_lbl_name_->set_label (oss1.str ());
+  pdialog_quiz_result_lbl_score_->set_label (oss1.str ());
 
   pdialog_quiz_result_->get_widget ("dialog_quiz_result_lbl_total",
-				    pdialog_quiz_result_lbl_name_);
+				    pdialog_quiz_result_lbl_total_);
 
   std::ostringstream oss2;
   oss2 << (quiz_->quiz_score () + quiz_->old_score ());
-  pdialog_quiz_result_lbl_name_->set_label (oss2.str ());
+  pdialog_quiz_result_lbl_total_->set_label (oss2.str ());
+
+  pdialog_quiz_result_->get_widget ("dialog_quiz_result_lbl_category",
+				    pdialog_quiz_result_lbl_category_);
+
+  pdialog_quiz_result_lbl_category_->set_label (quiz_->category ());
+
+  pdialog_quiz_result_->get_widget ("dialog_quiz_result_lbl_range",
+				    pdialog_quiz_result_lbl_range_);
+  
+  pdialog_quiz_result_lbl_range_->set_label 
+  (ControlSystem::range_category (quiz_->category ()));
 
   pdialog_quiz_result_->get_widget ("dialog_quiz_result_accept",
 				    pdialog_quiz_result_accept_);

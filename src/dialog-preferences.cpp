@@ -22,7 +22,7 @@
 #include"main.h"
 #include"etangocards-applet.h"
 
-int DialogPreferences::vec[7] = {15, 20, 25, 30, 45, 60, 0};
+int DialogPreferences::vec[7] = {15, 20, 25, 30, 45, 60, 1440};
 
 DialogPreferences::DialogPreferences (void) 
   throw ()
@@ -115,7 +115,7 @@ DialogPreferences::get_active (void) throw ()
   map_timeout.insert (std::make_pair (30, 3));
   map_timeout.insert (std::make_pair (45, 4));
   map_timeout.insert (std::make_pair (60, 5));
-  map_timeout.insert (std::make_pair (0, 6));
+  map_timeout.insert (std::make_pair (1440, 6));
 
   return map_timeout[ETangoCardsApplet::get_timeout ()];
 }

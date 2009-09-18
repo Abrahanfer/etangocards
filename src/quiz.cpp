@@ -83,13 +83,12 @@ Quiz::update_result (void) const throw ()
       bool stop = false;
       Package::Ranges::const_iterator i = ranges_.find 
 	(ControlSystem::range_categories_[pkg_->category ()]);
-      while (!stop || i != ranges_.end ())
+      while (!stop && i != ranges_.end ())
 	{
 	  if (i->second < score)
 	    i++;
 	  else
 	    {
-	      
 	      ControlSystem::range_categories_[pkg_->category ()] = 
 		i->first;
 	      stop = true;

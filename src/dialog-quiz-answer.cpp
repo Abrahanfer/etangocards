@@ -75,9 +75,9 @@ DialogQuizAnswer::dialog_quiz_answer_cancel (void) throw ()
 void
 DialogQuizAnswer::dialog_quiz_answer_accept (void) throw ()
 {
+  new DialogQuizBack (quiz_, this);
   dialog_quiz_front_->hide ();
   pdialog_quiz_answer_window_->hide ();
-  new DialogQuizBack (quiz_, this);
   delete dialog_quiz_front_; 
 }
 

@@ -40,6 +40,8 @@ private:
   Gtk::Label* pdialog_quiz_result_lbl_name_;
   Gtk::Label* pdialog_quiz_result_lbl_score_;
   Gtk::Label* pdialog_quiz_result_lbl_total_;
+  Gtk::Label* pdialog_quiz_result_lbl_category_;
+  Gtk::Label* pdialog_quiz_result_lbl_range_;
   Gtk::Button* pdialog_quiz_result_accept_;
 };
 

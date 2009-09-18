@@ -43,6 +43,7 @@ public:
   void update_result (void) const throw ();
   unsigned int quiz_score (void) const throw ();
   unsigned int old_score (void) const throw ();
+  const Glib::ustring& category (void) const throw ();
 private:
   typedef std::map<unsigned int, Card> Quiz_cards;
   Quiz_cards quiz_cards;
@@ -116,6 +117,12 @@ inline unsigned int
 Quiz::old_score (void) const throw ()
 {
   return old_score_;
+}
+
+inline const Glib::ustring&
+Quiz::category (void) const throw ()
+{
+  return pkg_->category ();
 }
 
 #endif //QUIZ_H_

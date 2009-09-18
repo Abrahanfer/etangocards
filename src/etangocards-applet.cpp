@@ -217,19 +217,12 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
 void
 ETangoCardsApplet::applet_timeout (int timeout_value) throw ()
 {
-  if (timeout_value != 0)
-    {
-      sigc::slot<bool> slot = sigc::ptr_fun
-	(&ETangoCardsApplet::show_packages_timeout);
-      slot_timeout = slot;
-      slot.disconnect ();
-      Glib::signal_timeout ().connect
-	(slot_timeout, 1000 * 60 * timeout_value);
-    }
-  else
-    {
-      slot_timeout.disconnect ();
-    }
+  sigc::slot<bool> slot = sigc::ptr_fun
+    (&ETangoCardsApplet::show_packages_timeout);
+  slot_timeout = slot;
+  Glib::signal_timeout ().connect_seconds
+    (slot_timeout, 
+     60 * timeout_value);
 }
 
 void

@@ -62,7 +62,7 @@ public:
   static void serializeSystem ();
   static void eliminatePackage (Package*) throw ();
   static void serializeConfigurationFile (void) throw ();
-  static const Glib::ustring& range_category (const Glib::ustring&) 
+  static const Glib::ustring& range_category (const Glib::ustring&)
     throw ();
   ~ControlSystem (void);
   static std::string path_;
