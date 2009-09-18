@@ -211,7 +211,7 @@ DialogPackage::dialog_package_close (GdkEventAny *) throw ()
 {
   pdialog_package_window_->hide ();
   pkg_->serialization ();
-  ControlSystem::eliminatePackage (*pkg_);
+  ControlSystem::eliminatePackage (pkg_);
   dialogPackages.erase (this);
   ControlSystem::serializeSystem ();
 

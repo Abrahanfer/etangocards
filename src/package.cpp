@@ -26,6 +26,8 @@
 #include"package.h"
 #include"card.h"
 
+Package::Ranges Package::ranges_;
+
 Package::Package (const std::string& pathname, unsigned int index_cards, 
 		  bool isXml)
   throw (NotFoundPackageException, BadPackageFileException):
@@ -55,6 +57,7 @@ Package::Package (const std::string& pathname, unsigned int index_cards,
       Glib::ustring score (root->get_attribute_value ("score"));
       std::istringstream iss_score(score);
       iss_score >> score_;
+      range_ = root->get_attribute_value ("range");
       xmlpp::Node::NodeList nodelist = root->get_children (); 
       xmlpp::Node::NodeList::const_iterator i;
       for(i = nodelist.begin (); i != nodelist.end (); ++i)
@@ -142,6 +145,7 @@ Package::serialization (void)
   nodeRoot->set_attribute ("num_cards", o1.str ());
   nodeRoot->set_attribute ("category", category_);
   nodeRoot->set_attribute ("score", o2.str ());
+  nodeRoot->set_attribute ("range", range_);
   Cards::const_iterator i;
   for (i = cards.begin (); i != cards.end (); ++i)
     {
@@ -157,4 +161,18 @@ const Card&
 Package::operator[] (unsigned int i) throw ()
 {
   return cards[i];
+}
+
+void
+Package::create_ranges (void) throw ()
+{
+  ranges_.insert (std::make_pair ("H", 0));
+  ranges_.insert (std::make_pair ("G", 1000));
+  ranges_.insert (std::make_pair ("F", 5000));
+  ranges_.insert (std::make_pair ("E", 10000));
+  ranges_.insert (std::make_pair ("D", 50000));
+  ranges_.insert (std::make_pair ("C", 100000));
+  ranges_.insert (std::make_pair ("B", 300000));
+  ranges_.insert (std::make_pair ("A", 500000));
+  ranges_.insert (std::make_pair ("S", 1000000));
 }

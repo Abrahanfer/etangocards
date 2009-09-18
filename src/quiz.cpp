@@ -1,3 +1,23 @@
+/* quiz.cpp
+ *
+ * Copyright (C) 2009 Abrahán Fernández Nieto
+ *
+ * Email: <abrahanfer@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #include<glibmm/ustring.h>
 #include<map>
 #include<set>
@@ -34,6 +54,7 @@ Quiz::Quiz (const Glib::ustring& filename) throw ()
 	  map_bool[rand_num] = true;
 	}
     }
+  old_score_ = ControlSystem::categories.find (pkg_->category ())->second;
   index = quiz_cards.begin ();
   end = quiz_cards.end ();
   index_row_number_ = 1;
@@ -47,12 +68,33 @@ Quiz::next_card (void) const throw ()
 }
 
 void
+
 Quiz::update_result (void) const throw ()
 {
-  /* double old_score = 
-    ControlSystem::categories.find (pkg_->category ())->second;
-  ControlSystem::categories[pkg_->category ()] 
-  = old_score + right_ * (pkg_->score () / pkg_->num_cards ()); */
+  ControlSystem::categories[pkg_->category ()]
+    = old_score () + quiz_score (); 
 
-  ControlSystem::categories["Geography"] = 50;
+  Package::Ranges ranges_ = Package::ranges ();
+
+  if (ranges_[ControlSystem::range_categories_[pkg_->category ()]] < 
+      ControlSystem::categories[pkg_->category ()])
+    {
+      unsigned int score = ControlSystem::categories[pkg_->category ()];
+      bool stop = false;
+      Package::Ranges::const_iterator i = ranges_.find 
+	(ControlSystem::range_categories_[pkg_->category ()]);
+      while (!stop || i != ranges_.end ())
+	{
+	  if (i->second < score)
+	    i++;
+	  else
+	    {
+	      
+	      ControlSystem::range_categories_[pkg_->category ()] = 
+		i->first;
+	      stop = true;
+	    }
+	    
+	}
+    }
 }

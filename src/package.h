@@ -29,6 +29,7 @@
 
 class Package {
 public:
+  typedef std::map<Glib::ustring, unsigned int> Ranges;
   class BadIndexCardsException {};
   class BeginPackageException {};
   class EndPackageException {};
@@ -70,7 +71,12 @@ public:
   const Card& operator[] (unsigned int) throw ();
   const Glib::ustring& category (void) const throw ();
   unsigned int score (void) const throw ();
+  static void create_ranges (void) throw ();
+  static const Ranges& ranges (void) throw ();
+  const Glib::ustring& range (void) const throw ();
 private:
+  static Ranges ranges_;
+  Glib::ustring range_;
   Glib::ustring path_;
   Glib::ustring name_;
   Glib::ustring category_;
@@ -159,4 +165,15 @@ Package::score (void) const throw ()
   return score_;
 }
 
+inline const Package::Ranges&
+Package::ranges (void) throw ()
+{
+  return ranges_;
+}
+
+inline const Glib::ustring&
+Package::range (void) const throw ()
+{
+  return range_;
+}
 #endif //PACKAGE_H_

@@ -106,9 +106,10 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
       xmlpp::Node::NodeList::const_iterator i;
       for(i = nodelist.begin (); i != nodelist.end (); ++i)
 	{
-	  xmlpp::Element *node = dynamic_cast<xmlpp::Element*>(*i);
-	  if(node->get_name () == "Package")
+	  
+	  if((*i)->get_name () == "Package")
 	    {
+	      xmlpp::Element *node = dynamic_cast<xmlpp::Element*>(*i);
 	      std::istringstream iss
 		(node->get_attribute_value ("index_cards"));
 	      iss >> index_cards;
@@ -117,23 +118,27 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
 	    }
 	  else
 	    {
-	      if (node->get_name () == "Categories")
+	      if ((*i)->get_name () == "Categories")
 		{
-		  xmlpp::Node::NodeList nodelist = node->get_children (); 
-		  xmlpp::Node::NodeList::const_iterator i;
-		  for (i = nodelist.begin (); i != nodelist.end (); ++i)
+		  xmlpp::Node::NodeList nodelist = (*i)->get_children (); 
+		  xmlpp::Node::NodeList::const_iterator j;
+		  for (j = nodelist.begin (); j != nodelist.end (); ++j)
 		    {
-		      xmlpp::Element *node = 
-			dynamic_cast<xmlpp::Element*>(*i);
-		      if (node)
+		      xmlpp::Element *nodeCategory = 
+			dynamic_cast<xmlpp::Element*>(*j);
+		      if (nodeCategory)
 			{
 			  Glib::ustring name_category 
-			    (node->get_attribute_value ("category"));
+			    (nodeCategory->get_attribute_value ("category"));
 			  std::istringstream iss
-			    (node->get_attribute_value ("score"));
+			    (nodeCategory->get_attribute_value ("score"));
 			  double score;
 			  iss >> score;
 			  ControlSystem::categories[name_category] = score;
+			  Glib::ustring range
+			    (nodeCategory->get_attribute_value ("range"));
+			  ControlSystem::range_categories_[name_category]
+			    = range;
 			}
 		    }
 		}
@@ -214,13 +219,12 @@ ETangoCardsApplet::applet_timeout (int timeout_value) throw ()
 {
   if (timeout_value != 0)
     {
-      //	slot_timeout.disconnect ();
       sigc::slot<bool> slot = sigc::ptr_fun
 	(&ETangoCardsApplet::show_packages_timeout);
-      Glib::signal_timeout ().connect
-	(slot_timeout, 1000 * 60 * timeout_value);
       slot_timeout = slot;
       slot.disconnect ();
+      Glib::signal_timeout ().connect
+	(slot_timeout, 1000 * 60 * timeout_value);
     }
   else
     {

@@ -24,13 +24,15 @@
 
 #include<glibmm.h>
 #include<map>
+#include<set>
 
 class Package;
 
 class ControlSystem {
 public:
-  typedef std::map<Glib::ustring, double> Categories;
-  typedef std::map<Glib::ustring, Package *> Packages;
+  typedef std::map<Glib::ustring, Glib::ustring> RangeCategories;
+  typedef std::map<Glib::ustring, unsigned int> Categories;
+  typedef std::set<Package *> Packages;
   class RepeatPackageException {
   public:
     explicit RepeatPackageException (const std::string&);
@@ -46,8 +48,8 @@ public:
   private:
     std::string packageName_;
   };
-  static void associate (const std::string&, Package*) 
-    throw (RepeatPackageException);
+  static void associate (Package*) 
+    throw ();
   //static const Packages& associate (void) const;
   //const Package& LoadPackage (const std::string&) const
   //throw (NoPackagesException, NoPackageFoundException);
@@ -56,13 +58,15 @@ public:
 	   Package::BadPackageFileException,
 	   RepeatPackageException);*/
   void showPackage (const std::string&);
-  void listPackages (void) const;
   void NewPackage (const std::string&);
   static void serializeSystem ();
-  static void eliminatePackage (const Package&) throw ();
+  static void eliminatePackage (Package*) throw ();
   static void serializeConfigurationFile (void) throw ();
+  static const Glib::ustring& range_category (const Glib::ustring&) 
+    throw ();
   ~ControlSystem (void);
   static std::string path_;
+  static RangeCategories range_categories_;
   static Categories categories;
 private:
   static Packages packages;
@@ -96,4 +100,10 @@ ControlSystem::NoPackageFoundException::packageName() const
   return packageName_;
 }
 
+inline const Glib::ustring&
+ControlSystem::range_category (const Glib::ustring& name_category)
+  throw ()
+{
+  return range_categories_[name_category];
+}
 #endif

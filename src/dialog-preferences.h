@@ -34,6 +34,7 @@ class ETangoCardsApplet;
 class DialogPreferences {
 public:
   DialogPreferences (void) throw ();
+  int get_active (void) throw ();
   static int vec[7];
 private:
   void dialog_preferences_close (void) throw ();

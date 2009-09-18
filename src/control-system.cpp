@@ -30,18 +30,18 @@
 #include"etangocards-applet.h"
 
 std::string ControlSystem::path_(Glib::get_home_dir () + "/.etangocards");
+
 ControlSystem::Categories ControlSystem::categories;
+
+ControlSystem::RangeCategories ControlSystem::range_categories_;
 
 ControlSystem::Packages ControlSystem::packages;
 
 void
-ControlSystem::associate (const std::string& str, Package* pkg)
-  throw (RepeatPackageException)
+ControlSystem::associate (Package* pkg)
+  throw ()
 {
-  if (packages.find (str) == packages.end ())
-    packages.insert (std::make_pair (str, pkg));
-  else
-    throw RepeatPackageException (str);
+    packages.insert (pkg);
 }
 
 /*const Package& 
@@ -66,7 +66,7 @@ ControlSystem::LoadPackage (const std::string& str, unsigned int index_cards)
   RepeatPackageException)*/
 {
   Package *pkg = new Package(str, index_cards, true);
-  associate (pkg->name (), pkg);
+  associate (pkg);
   DialogPackage *pdpkg = new DialogPackage (pkg);
   DialogPackage::insertDialogPackage (pdpkg);
 
@@ -132,19 +132,11 @@ catch (Package::BadIndexCardsException e){
  }*/
 
 void
-ControlSystem::listPackages (void) const
-{
-  Packages::const_iterator i;
-  for (i = packages.begin (); i != packages.end (); ++i)
-    std::cout << i->first  << std::endl;
-}
-
-void
 ControlSystem::NewPackage (const std::string& str)
 {
   Package *pkg = new Package (str);
 
-  associate (str,pkg);
+  associate (pkg);
 }
 
 void
@@ -154,16 +146,16 @@ ControlSystem::serializeSystem (void)
 
   for (i = packages.begin (); i != packages.end (); ++i)
     {
-      i->second->serialization ();
+      (*i)->serialization ();
     }
 
   serializeConfigurationFile ();
 }
 
 void
-ControlSystem::eliminatePackage (const Package& pkg) throw ()
+ControlSystem::eliminatePackage (Package* pkg) throw ()
 {
-  Packages::iterator pos = packages.find (pkg.name ());
+  Packages::iterator pos = packages.find (pkg);
   packages.erase (pos);
 }
 
@@ -182,9 +174,9 @@ ControlSystem::serializeConfigurationFile (void) throw ()
     {
       xmlpp::Element* nodeChild = nodeRoot->add_child ("Package");
       std::ostringstream oss;
-      oss << i->second->index_cards ();
+      oss << (*i)->index_cards ();
       nodeChild->set_attribute ("index_cards", oss.str ());
-      nodeChild->set_attribute ("path", i->second->path ());
+      nodeChild->set_attribute ("path", (*i)->path ());
     }
   Categories::const_iterator j;
   xmlpp::Element* nodeCategories = nodeRoot->add_child ("Categories");
@@ -195,6 +187,8 @@ ControlSystem::serializeConfigurationFile (void) throw ()
       std::ostringstream oss;
       oss << j->second;
       nodeCategory->set_attribute ("score", oss.str ());
+      nodeCategory->set_attribute ("range", ControlSystem::range_category 
+				   (j->first));
     }
 
   configurationFile.write_to_file_formatted (path_);
@@ -206,5 +200,5 @@ ControlSystem::~ControlSystem (void)
 
   for (pos = packages.begin (); pos != packages.end (); 
        ++pos)
-    delete pos->second;
+    delete *pos;
 }

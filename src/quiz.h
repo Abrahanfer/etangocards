@@ -1,5 +1,24 @@
 //-*-c++-*-
-
+/* quiz.h
+ *
+ * Copyright (C) 2009 Abrahán Fernández Nieto
+ *
+ * Email: <abrahanfer@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #ifndef QUIZ_H_
 #define QUIZ_H_
 
@@ -7,8 +26,7 @@
 #include<map>
 #include"card.h"
 #include"dialog-quiz-result.h"
-
-class Package;
+#include"package.h"
 
 class Quiz {
 public:
@@ -23,12 +41,15 @@ public:
   void card_wrong (void) const throw ();
   void result (void) const throw ();
   void update_result (void) const throw ();
+  unsigned int quiz_score (void) const throw ();
+  unsigned int old_score (void) const throw ();
 private:
   typedef std::map<unsigned int, Card> Quiz_cards;
   Quiz_cards quiz_cards;
   mutable Quiz_cards::const_iterator index;
   Quiz_cards::const_iterator end;
   Package* pkg_;
+  mutable unsigned int old_score_;
   mutable unsigned int index_row_number_;
   mutable unsigned int total_;
   mutable unsigned int right_;
@@ -81,8 +102,20 @@ Quiz::card_wrong (void) const throw ()
 inline void
 Quiz::result (void) const throw ()
 {
-  new DialogQuizResult (this);
   update_result ();
+  new DialogQuizResult (this);
+}
+
+inline unsigned int
+Quiz::quiz_score (void) const throw ()
+{
+  return right_ * (pkg_->score () / pkg_->num_cards ());
+}
+
+inline unsigned int
+Quiz::old_score (void) const throw ()
+{
+  return old_score_;
 }
 
 #endif //QUIZ_H_

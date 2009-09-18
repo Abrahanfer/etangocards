@@ -77,12 +77,12 @@ DialogPreferences::DialogPreferences (void)
 
   pdialog_preferences_comboBox_->pack_start (m_col_times);
 
+  pdialog_preferences_comboBox_->set_active (get_active ());
   pdialog_preferences_comboBox_->signal_changed ().connect
     (sigc::mem_fun (
 		    *this,
 		    &DialogPreferences::dialog_preferences_changed));
 
-  pdialog_preferences_comboBox_->set_active (0);
 
   pdialog_preferences_->get_widget ("dialog_preferences_window",
 				    pdialog_preferences_window_);
@@ -103,4 +103,19 @@ DialogPreferences::dialog_preferences_changed (void) throw ()
 
   ETangoCardsApplet::set_timeout 
     (vec[pdialog_preferences_comboBox_->get_active_row_number ()]);
+}
+
+int
+DialogPreferences::get_active (void) throw ()
+{
+  std::map<int, int> map_timeout;
+  map_timeout.insert (std::make_pair (15, 0));
+  map_timeout.insert (std::make_pair (20, 1));
+  map_timeout.insert (std::make_pair (25, 2));
+  map_timeout.insert (std::make_pair (30, 3));
+  map_timeout.insert (std::make_pair (45, 4));
+  map_timeout.insert (std::make_pair (60, 5));
+  map_timeout.insert (std::make_pair (0, 6));
+
+  return map_timeout[ETangoCardsApplet::get_timeout ()];
 }
