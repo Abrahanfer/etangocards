@@ -34,16 +34,62 @@
 #include"package.h"
 #include"dialog-new.h"
 
+/**
+ * <p>This class manage the windows for packages.</p>
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogPackage {
 public:
+
+  ///typedef for whole DialogPackages show
   typedef std::set<DialogPackage *> DialogPackages;
+
+  /**
+   * Contructor which receive one parameters
+   *
+   * @param pkg a pointer to the package
+   */
   DialogPackage (Package *);
+
+  /**
+   * Destructor
+   */
   ~DialogPackage (void);
+
+
+  /**
+   * Method which update the window when a new card 
+   * is added.
+   */
   void refresh_num_cards (void) const throw ();
+
+  /**
+   * Method which hide all package windows show. 
+   */
   static void dialog_package_hide_windows (void) throw ();
+
+  /**
+   * Method which hide a package window.
+   */
   void hide (void) throw ();
+
+  /**
+   * Method which insert a package in a set.
+   *
+   * @param pdpkg is a pointer to DialogPackage object
+   */
   static void insertDialogPackage (DialogPackage *) throw ();
+
+  /**
+   * Method which hide all package windows hide.
+   */
   static void dialog_package_show_windows (void) throw ();
+
+  /**
+   * Method which show a window hide.
+   */
   void show (void) throw ();
 private:
   void dialog_package_new_card (void) throw ();

@@ -31,11 +31,41 @@
 
 class DialogQuizFront;
 
+/**
+ * This class is part of Quiz mode feature. Manage the windows 
+ * of quiz's answer.
+ *
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogQuizAnswer {
 public:
+
+  /**
+   * Contructor which receive two parameters.
+   *
+   * @param quiz pointer to Quiz object.
+   * @param dialog_quiz_front pointer to DialogQuizFront 
+   * object which call to this contructor.
+   */
   DialogQuizAnswer (const Quiz*, const DialogQuizFront*) throw ();
+
+  /**
+   * Method hand the signal cancel button clicked.
+   */
   void dialog_quiz_answer_cancel (void) throw ();
+
+  /**
+   * Method hand the signal accept button clicked.
+   */
   void dialog_quiz_answer_accept (void) throw ();
+
+  /**
+   * Method which return the user's answer.
+   *
+   * @return the user's answer.
+   */
   Glib::RefPtr<Gtk::TextBuffer> user_answer (void) const throw ();
 private:
   const Quiz* quiz_;

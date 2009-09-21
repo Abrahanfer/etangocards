@@ -30,10 +30,31 @@
 #include"quiz.h"
 #include"dialog-quiz-answer.h"
 
+/**
+ * Class which hand window for card's back in Quiz mode.
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogQuizBack {
 public:
+
+  /**
+   * Constructor which receive two parameters.
+   *
+   * @param quiz pointer to Quiz object
+   * @param dialog_quiz_answer pointer to DialogQuizAnswer object.
+   */
   DialogQuizBack (const Quiz*, const DialogQuizAnswer*) throw ();
+
+  /**
+   * Method hand the signal no button clicked.
+   */
   void dialog_quiz_back_no (void) throw ();
+
+  /**
+   * Method hand the signal yes button clicked.
+   */
   void dialog_quiz_back_yes (void) throw ();
 private:
   const Quiz* quiz_;

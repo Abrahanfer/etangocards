@@ -158,7 +158,7 @@ ETangoCardsApplet::~ETangoCardsApplet (void)
 
 void 
 ETangoCardsApplet::applet_load_package (BonoboUIComponent *, 
-					void *applet, const char *)
+					void *, const char *)
 {
   Gtk::FileChooserDialog dialog("Please choose a package",
 				Gtk::FILE_CHOOSER_ACTION_OPEN);

@@ -31,9 +31,24 @@
 #include<gtkmm/button.h>
 #include"main.h"
 
+/**
+ * <p>This class construct and manage the window for 
+ * creation packages.</p>
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogCreationPackage {
 public:
+
+  /**
+   * Default contructor
+   */
   DialogCreationPackage (void);
+
+  /**
+   * Destructor
+   */
   ~DialogCreationPackage (void);
 private:
   void dialog_creation_package_cancel (void) throw();

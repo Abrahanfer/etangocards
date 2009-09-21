@@ -27,53 +27,244 @@
 #include"control-system.h"
 #include"card.h"
 
+/**
+ * This class hold the information of a package.
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class Package {
 public:
+  /// Typedef which represent relations between ranges 
+  /// and puntuations.
   typedef std::map<Glib::ustring, unsigned int> Ranges;
+
+  /**
+   * Class exception throwed when a error in package's 
+   * index is detected.
+   *
+   * @author Abrahán Fernández Nieto
+   * @version 1.0
+   */
   class BadIndexCardsException {};
+
+  /**
+   * Class exception throwed when the package's begin is detected.
+   *
+   * @author Abrahán Fernández Nieto
+   * @version 1.0
+   */
   class BeginPackageException {};
+
+  /**
+   * Class exception throwed when the package's end is detected.
+   *
+   * @author Abrahán Fernández Nieto
+   * @version 1.0
+   */
   class EndPackageException {};
+
+  /**
+   * Class exception throwed when the package is not found.
+   *
+   * @author Abrahán Fernández Nieto
+   * @version 1.0
+   */
   class NotFoundPackageException {
   public:
+
+    /**
+     * Constructor
+     *
+     * @param pkg_name package's name
+     */
     NotFoundPackageException (const Glib::ustring&);
+
+    /**
+     * Method which return package's name
+     *
+     * @return package's name
+     */
     const Glib::ustring& what (void) const;
   private:
     Glib::ustring pkg_name_;
   };
+
+  /**
+   * Class exception throwed when the package is corrupted.
+   *
+   * @author Abrahán Fernández Nieto
+   * @version 1.0
+   */
   class BadPackageFileException {
   public:
+
+    /**
+     * Constructor
+     *
+     * @param pkg_name package's name
+     */
     BadPackageFileException (const Glib::ustring&);
+
+    /**
+     * Method which return package's name
+     *
+     * @return package's name
+     */
     const Glib::ustring& what (void) const;
   private:
     Glib::ustring pkg_name_;
   };
+
+  /**
+   * Typedef for cards stocks in package.
+   */
   typedef std::map<unsigned int, Card> Cards;
+
+  /**
+   * Constructor which receive one parameters
+   *
+   * @param name is package name
+   */
   Package (const Glib::ustring&)
     throw ();
+
+  /**
+   * Constructor which receive five parameters.
+   *
+   * @param name package name
+   * @param path path where be saved
+   * @param category category which belong
+   * @param score punctuation this package
+   * @param range range which belong 
+   */
   Package (const Glib::ustring&, const Glib::ustring&, const Glib::ustring&,
 	   const Glib::ustring&, int)
     throw ();
+
+  /**
+   * Constructor which receive three parameters.
+   *
+   * @param pathname path where be the package
+   * @param index_cards index for view
+   * @param isXml boolean always true
+   */
   Package (const std::string&, unsigned int, bool) 
     throw (NotFoundPackageException, BadPackageFileException);
+
+  /**
+   * Method for add card to package.
+   *
+   * @param front is card's front
+   * @param back is card's back
+   */
   void addCard (const Glib::ustring&, const Glib::ustring&) 
     throw ();
+
+  /**
+   * Method which show de init card
+   *
+   * @return the init card
+   */
   const Card& showInitCard ()
     throw (BadIndexCardsException);
+
+  /**
+   * Method which show de next card
+   *
+   * @return the next card
+   */
   const Card& showNextCard () 
     throw (EndPackageException);
+
+  /**
+   * Method which show de preview card
+   *
+   * @return the preview card
+   */
   const Card& showPrevCard ()
     throw (BeginPackageException);
+
+  /**
+   * Method which show de actual card
+   *
+   * @return the actual card
+   */
   const Card& showThisCard () const throw ();
+
+  /**
+   * Method which return the package's name.
+   *
+   * @return pacakge's name
+   */
   const Glib::ustring& name () const throw ();
+
+  /**
+   * Method which return the package's number of cards.
+   *
+   * @return nunmbers of cards
+   */
   unsigned int num_cards () const throw ();
+
+  /**
+   * Method which return the package's index.
+   *
+   * @return package's index
+   */
   unsigned int index_cards () const throw ();
+
+  /**
+   * Method which return the package's path.
+   *
+   * @return pacakge's path
+   */
   const Glib::ustring& path () const throw ();
+
+  /**
+   * Method which serialize the pacakge.
+   */
   void serialization () throw ();
+
+  /**
+   * Operator overload which return the card in the 
+   * position refered.
+   *
+   * @param i card's position in the package
+   * @return card in that position 
+   */
   const Card& operator[] (unsigned int) throw ();
+
+  /**
+   * Method which return the package's category.
+   *
+   * @return pacakge's category
+   */
   const Glib::ustring& category (void) const throw ();
+
+  /**
+   * Method which return the package's score.
+   *
+   * @return pacakge's score
+   */
   unsigned int score (void) const throw ();
+
+  /**
+   * Construstor of ranges.
+   */
   static void create_ranges (void) throw ();
+
+  /**
+   * Method which return all ranges.
+   *
+   * @return all ranges
+   */
   static const Ranges& ranges (void) throw ();
+
+  /**
+   * Method which return the package's range.
+   *
+   * @return pacakge's range
+   */
   const Glib::ustring& range (void) const throw ();
 private:
   static Ranges ranges_;

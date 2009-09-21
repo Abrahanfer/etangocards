@@ -26,16 +26,56 @@
 #include<glibmm.h>
 
 /**
+ * <p>This class simulate the package's cards.</p>
  *
- *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
  */
 class Card {
 public:
+
+  /**
+   * Default contructor
+   */
   Card (void);
+
+  /**
+   * This constructor receive two parameters.
+   *
+   * @param f is a Glib::ustring
+   * @param b is a Glib::ustring
+   */
   Card (Glib::ustring, Glib::ustring);
+
+  /**
+   * Method which show the card.
+   *
+   * @return const Glib::ustring&
+   */
   const Glib::ustring& show (void) const;
+
+  /**
+   * Method which show the card's front.
+   *
+   * @return const Glib::ustring&
+   */
   const Glib::ustring& front (void) const;
+
+
+  /**
+   * Method which show the card's back.
+   *
+   * @return const Glib::ustring&
+   */
   const Glib::ustring& back (void) const;
+
+
+  /**
+   * Method which return true if the card show the front, 
+   * else return false.
+   *
+   * @return bool
+   */
   bool is_front (void) const;
 private:
   mutable bool is_front_;

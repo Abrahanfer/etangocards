@@ -31,10 +31,29 @@
 
 class ETangoCardsApplet;
 
+/**
+ * This class manage the dialog preferences.
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogPreferences {
 public:
+
+  /**
+   * Default contructor.
+   */
   DialogPreferences (void) throw ();
+
+  /**
+   * Method which return the comoboBox's active state.
+   *
+   * @return the active state in a int.
+   */
   int get_active (void) throw ();
+
+  /// Attribute which is a relation between comboBox's 
+  /// active state and timeouts.
   static int vec[7];
 private:
   void dialog_preferences_close (void) throw ();

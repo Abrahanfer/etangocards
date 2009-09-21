@@ -29,9 +29,25 @@
 
 class Quiz;
 
+/**
+ * Class which hand window for results of quiz in Quiz mode.
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogQuizResult {
 public:
+
+  /**
+   * Contructor which receive one parameter.
+   *
+   * @param quiz is a pointer to Quiz object.
+   */
   DialogQuizResult (const Quiz*) throw ();
+
+  /**
+   * Method hand the signal accept button clicked.
+   */
   void dialog_quiz_result_accept (void) throw ();
 private:
   const Quiz* quiz_;

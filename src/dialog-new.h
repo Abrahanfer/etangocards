@@ -33,9 +33,26 @@
 
 class DialogPackage;
 
+/**
+ * <p>This class manage the window for news cards.</p>
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogNew {
 public:
+
+  /**
+   * Constructor with two parameters.
+   *
+   * @param pkg pointer to package
+   * @param d_pkg pointer to window for package <code>pkg</code>
+   */
   DialogNew (Package*, const DialogPackage*);
+
+  /**
+   * Destructor
+   */
   ~DialogNew (void);
 private:
   void dialog_new_save_card (void);

@@ -31,10 +31,30 @@
 #include"main.h"
 #include"dialog-quiz-answer.h"
 
+/**
+ * Class which hand window for card's front in Quiz mode.
+ *
+ * @author Abrahán Fernández Nieto
+ * @version 1.0
+ */
 class DialogQuizFront {
 public:
+
+  /**
+   * Contructor which receive one parameter.
+   *
+   * @param quiz is a pointer to Quiz object.
+   */
   DialogQuizFront (const Quiz*) throw ();
+
+  /**
+   * Method hand the signal question button clicked.
+   */
   void dialog_quiz_front_question (void) throw ();
+
+  /**
+   * Method which hide the window.
+   */
   void hide (void) const throw ();
 private:
   const Quiz* quiz_;
