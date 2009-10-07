@@ -1,7 +1,7 @@
 //-*-c++-*-
 /* control-system.h
  *
- * Copyright (C) 2009 Abrahán Fernández Nieto
+ * Copyright (C) by 2009 Abrahán Fernández Nieto
  *
  * Email: <abrahanfer@gmail.com>
  *
@@ -173,6 +173,14 @@ public:
     throw ();
 
   /**
+   * This observer method return de path of configuration
+   * file be saved.
+   *
+   * @return The path of configuration file be saved
+   */
+
+  static const std::string& path (void) throw (); 
+  /**
    * Destructor
    */
   ~ControlSystem (void);
@@ -223,4 +231,10 @@ ControlSystem::range_category (const Glib::ustring& name_category)
 {
   return range_categories_[name_category];
 }
-#endif
+
+inline const std::string&
+ControlSystem::path (void) throw ()
+{
+  return path_;
+}
+#endif //CONTROL_SYSTEM_H_

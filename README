@@ -1,0 +1,25 @@
+ETangoCards
+=======================
+
+ETangoCards was developed using Debian 5.0 Lenny stable, for other 
+distributions no-based in Debian, as Gentoo Linux, was not tested.
+
+Under GNU/Linux, compilation and installation go something like this:
+
+      $ cd etangocards-x.y.z
+      $ ./configure
+      $ make
+      $ sudo make install
+      $ make distclean
+
+* For more information, please see INSTALL file.
+
+REQUIREMENTS
+=======================
+
+You need at least:
+
+    gtkmm-2.4 >= 2.8.0
+    libxml++-2.6 >= 2.10.0
+    libbonobo-2.0 >= 2.22.0
+    libpanelappletmm-2.6 >= 2.22.0

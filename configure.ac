@@ -7,11 +7,11 @@ GNOME_COMMON_INIT
 GNOME_MAINTAINER_MODE_DEFINES
 GNOME_COMPILE_WARNINGS
 
-dnl Checking for libxml++2.6
+dnl Checking for libxml++-2.6
 PKG_CHECK_MODULES(LIBXMLPP, libxml++-2.6 >= 2.10.0)
 AC_SUBST(LIBXMLPP_CFLAGS, [`pkg-config --cflags libxml++-2.6`])
 AC_SUBST(LIBXMLPP_LIBS, [`pkg-config --libs libxml++-2.6`])
-dnl Checking for gtkmm2.4
+dnl Checking for gtkmm-2.4
 PKG_CHECK_MODULES(GTKMM, gtkmm-2.4 >= 2.8.0)
 AC_SUBST(GTKMM_CFLAGS, [`pkg-config --cflags gtkmm-2.4`])
 AC_SUBST(GTKMM_LIBS, [`pkg-config --libs gtkmm-2.4`])

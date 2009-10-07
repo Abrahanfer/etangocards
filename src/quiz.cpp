@@ -29,7 +29,8 @@
 #include"dialog-quiz-front.h"
 #include"control-system.h"
 
-Quiz::Quiz (const Glib::ustring& filename) throw ()
+Quiz::Quiz (const Glib::ustring& filename) 
+  throw (): right_ (0), wrong_ (0)
 {
   unsigned int i, rand_num;
   pkg_ = new Package (filename, 1, true);
@@ -54,7 +55,13 @@ Quiz::Quiz (const Glib::ustring& filename) throw ()
 	  map_bool[rand_num] = true;
 	}
     }
-  old_score_ = ControlSystem::categories.find (pkg_->category ())->second;
+
+  if (ControlSystem::categories.find (pkg_->category ()) 
+      != ControlSystem::categories.end ())
+    old_score_ = ControlSystem::categories.find (pkg_->category ())->second;
+  else
+    old_score_ = 0;
+
   index = quiz_cards.begin ();
   end = quiz_cards.end ();
   index_row_number_ = 1;
@@ -76,24 +83,31 @@ Quiz::update_result (void) const throw ()
 
   Package::Ranges ranges_ = Package::ranges ();
 
-  if (ranges_[ControlSystem::range_categories_[pkg_->category ()]] < 
-      ControlSystem::categories[pkg_->category ()])
+  if (ControlSystem::range_categories_.find (pkg_->category ()) 
+      == ControlSystem::range_categories_.end ())
+    ControlSystem::range_categories_[pkg_->category ()] 
+      = "H";
+  else
     {
-      unsigned int score = ControlSystem::categories[pkg_->category ()];
-      bool stop = false;
-      Package::Ranges::const_iterator i = ranges_.find 
-	(ControlSystem::range_categories_[pkg_->category ()]);
-      while (!stop && i != ranges_.end ())
+      if (ranges_[ControlSystem::range_categories_[pkg_->category ()]] < 
+	  ControlSystem::categories[pkg_->category ()])
 	{
-	  if (i->second < score)
-	    i++;
-	  else
+	  unsigned int score = ControlSystem::categories[pkg_->category ()];
+	  bool stop = false;
+	  Package::Ranges::const_iterator i = ranges_.find 
+	    (ControlSystem::range_categories_[pkg_->category ()]);
+	  while (!stop && i != ranges_.end ())
 	    {
-	      ControlSystem::range_categories_[pkg_->category ()] = 
-		i->first;
-	      stop = true;
-	    }
+	      if (i->second < score)
+		i++;
+	      else
+		{
+		  ControlSystem::range_categories_[pkg_->category ()] = 
+		    i->first;
+		  stop = true;
+		}
 	    
+	    }
 	}
     }
 }

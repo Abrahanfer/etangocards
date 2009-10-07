@@ -38,6 +38,7 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
   Gnome::Panel::Applet (castitem)
 {
   unsigned int index_cards;
+  bool configurationFile = true;
 
   static const Glib::ustring xml_popup =
     "<popup name='button3'>\n"
@@ -88,14 +89,16 @@ ETangoCardsApplet::ETangoCardsApplet (PanelApplet* castitem):
   set_flags (Gnome::Panel::APPLET_EXPAND_MINOR);
   //Recuperation of lastest session
   xmlpp::DomParser parser;
+  //parser.set_validate ();
   try
     {
-      parser.parse_file (ControlSystem::path_);
+      parser.parse_file (ControlSystem::path ());
     }
   catch (xmlpp::internal_error e)
     {//TODO: bad package
+      configurationFile = false;
     }
-  if (parser)
+  if (parser && configurationFile)
     {
       const xmlpp::Element* root = 
 	parser.get_document ()->get_root_node ();
