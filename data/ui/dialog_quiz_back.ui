@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--Generated with glade3 3.4.5 on Fri Sep 18 16:33:00 2009 -->
+<interface>
+  <object class="GtkWindow" id="dialog_quiz_back_window">
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <property name="default_width">450</property>
+    <property name="default_height">300</property>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkToolbar" id="dialog_quiz_back_toolbar">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkToolItem" id="dialog_quiz_back_element1">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkLabel" id="dialog_quiz_back_lbl_choose">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="dialog_quiz_back_button_no">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-no</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="dialog_quiz_back_button_yes">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-yes</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="dialog_quiz_back_separator">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolItem" id="dialog_quiz_back_element2">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkHBox" id="hbox1">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="dialog_quiz_back_lbl1">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="dialog_quiz_back_lbl2">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="dialog_quiz_back_lbl3">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="dialog_quiz_back_textview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="editable">False</property>
+            <property name="justification">GTK_JUSTIFY_CENTER</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

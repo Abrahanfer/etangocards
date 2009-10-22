@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!--Generated with glade3 3.4.5 on Fri Sep 18 19:45:30 2009 -->
+<interface>
+  <object class="GtkWindow" id="dialog_creation_package_window">
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <child>
+      <object class="GtkVBox" id="vbox2">
+        <property name="visible">True</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_creation_package_lbl1">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Name of package:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="dialog_creation_package_entry">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox3">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_creation_package_lb2">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Category:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="dialog_creation_package_category">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox4">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_creation_package_lbl3">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Score:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="dialog_creation_package_score">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox5">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_creation_package_lbl4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Range:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="dialog_creation_package_comboBox1">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox2">
+            <property name="visible">True</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_creation_package_lbl5">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Type:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="dialog_creation_package_comboBox2">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHButtonBox" id="hbuttonbox1">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkButton" id="dialog_creation_package_btn_cancel">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="use_stock">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="dialog_creation_package_btn_save">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="label" translatable="yes">gtk-save</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">5</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!--Generated with glade3 3.4.5 on Fri Sep 18 16:39:38 2009 -->
+<interface>
+  <object class="GtkWindow" id="dialog_quiz_result_window">
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <property name="default_width">300</property>
+    <property name="default_height">250</property>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl1">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;User's name:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl_name">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox2">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_qyuz_result_lbl2">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Score this quiz:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl_score">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox3">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl3">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Total score:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl_total">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox5">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Category:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl_category">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox6">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl5">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Range:&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="justify">GTK_JUSTIFY_RIGHT</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="dialog_quiz_result_lbl_range">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHButtonBox" id="hbuttonbox1">
+            <property name="visible">True</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkButton" id="dialog_quiz_result_accept">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="label" translatable="yes">gtk-ok</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">5</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--Generated with glade3 3.4.5 on Wed Sep  9 20:18:31 2009 -->
+<interface>
+  <object class="GtkWindow" id="dialog_new_window">
+    <property name="default_width">450</property>
+    <property name="default_height">300</property>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkToolbar" id="dialog_new_toolbar">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkToolButton" id="dialog_new_save_button">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-save</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton1">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="dialog_new_information_button">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-dialog-info</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton2">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolItem" id="dialog_new_label">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkLabel" id="dialog_new_lbl">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="dialog_new_textview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="justification">GTK_JUSTIFY_CENTER</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
