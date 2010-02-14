@@ -61,7 +61,9 @@ ControlSystem::LoadPackage (const std::string& str) const
   }*/
 
 Package*
-ControlSystem::LoadPackage (const std::string& str, unsigned int index_cards)
+ControlSystem::LoadPackage (const std::string& str, unsigned int
+index_cards)
+  throw (Package::BadPackageFileException)
 /*throw (Package::NotFoundPackageException, Package::BadPackageFileException,
   RepeatPackageException)*/
 {

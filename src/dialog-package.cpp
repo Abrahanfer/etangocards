@@ -26,6 +26,7 @@
 #include<gtkmm/button.h>
 #include<gtkmm/textview.h>
 #include<gtkmm/textbuffer.h>
+#include"control-system.h"
 #include"dialog-package.h"
 #include"dialog-new.h"
 

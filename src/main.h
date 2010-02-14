@@ -38,7 +38,8 @@
   "dialog_quiz_back.ui"
 #define FILE_UI_DIALOG_QUIZ_RESULT UI_DIR G_DIR_SEPARATOR_S \
   "dialog_quiz_result.ui"
-
+#define FILE_UI_DIALOG_ALERT_PACKAGE UI_DIR G_DIR_SEPARATOR_S \
+  "dialog_alert_package.ui"
 #define ICONS_DIR DATADIR G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S "icons"
 
 #define ICONS_ETANGOCARDS_32 ICONS_DIR G_DIR_SEPARATOR_S "etangocards.32.png"

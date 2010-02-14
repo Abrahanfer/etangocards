@@ -10,7 +10,8 @@ ui_DATA = data/ui/dialog_package.ui \
 	  data/ui/dialog_quiz_front.ui\
 	  data/ui/dialog_quiz_answer.ui\
 	  data/ui/dialog_quiz_back.ui\
-	  data/ui/dialog_quiz_result.ui
+	  data/ui/dialog_quiz_result.ui\
+          data/ui/dialog_alert_package.ui	
 
 iconsdir = $(datadir)/$(PACKAGE)/icons
 

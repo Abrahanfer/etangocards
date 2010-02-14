@@ -17,7 +17,8 @@ etangocards_SOURCES = main.cpp main.h card.cpp card.h package.cpp \
 	dialog-quiz-front.h dialog-quiz-front.cpp \
 	dialog-quiz-answer.h dialog-quiz-answer.cpp\
 	dialog-quiz-back.h dialog-quiz-back.cpp\
-	dialog-quiz-result.h dialog-quiz-result.cpp
+	dialog-quiz-result.h dialog-quiz-result.cpp\
+	dialog-alert-package.h dialog-alert-package.cpp
 etangocards_LDFLAGS = @LIBXMLPP_LIBS@ @GTKMM_LIBS@ @LIBBONOBO_LIBS@ \
 	@LIBPANELAPPLETMM_LIBS@ 
 etangocards_CXXFLAGS = @LIBXMLPP_CFLAGS@ @GTKMM_CFLAGS@ \

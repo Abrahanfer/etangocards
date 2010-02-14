@@ -24,7 +24,7 @@
 
 #include<glibmm.h>
 #include<map>
-#include"control-system.h"
+//#include"control-system.h"
 #include"card.h"
 
 /**

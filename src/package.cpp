@@ -68,6 +68,10 @@ Package::Package (const std::string& pathname, unsigned int index_cards,
     {
       throw NotFoundPackageException (pathname);
     }
+  catch (...)
+    {
+      throw BadPackageFileException (pathname);
+    }
   if (parser)
     {
       const xmlpp::Element* root = 
@@ -98,6 +102,10 @@ Package::Package (const std::string& pathname, unsigned int index_cards,
       if(n_cards != num_cards_ || 
 	 (index_cards_ > num_cards_ || index_cards_ < 1))
 	throw BadPackageFileException (name_);
+    }
+  else
+    {
+      throw BadPackageFileException (pathname);
     }
 }
 

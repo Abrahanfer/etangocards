@@ -25,6 +25,7 @@
 #include<glibmm.h>
 #include<map>
 #include<set>
+#include"package.h"
 
 class Package;
 
@@ -37,7 +38,7 @@ class Package;
 class ControlSystem {
 public:
 
-  ///This typedef realtions Ranges with Categories
+  ///This typedef relations Ranges with Categories
   typedef std::map<Glib::ustring, Glib::ustring> RangeCategories;
 
   ///This typedef realtions Categories with puntuation
@@ -64,7 +65,7 @@ public:
     explicit RepeatPackageException (const std::string&);
 
     /**
-     * Method for to show the pacakge's name
+     * Method for to show the package's name
      *
      * @return const std::string&
      */
@@ -83,8 +84,8 @@ public:
   class NoPackagesException {};
 
   /**
-   * <p>This exception class is throwed when the pacakge required 
-   * it's no fount.</p>
+   * <p>This exception class is throwed when the package required 
+   * it's not fount.</p>
    *
    * @author Abrahán Fernández Nieto
    * @version 1.0
@@ -100,7 +101,7 @@ public:
     explicit NoPackageFoundException (const std::string&);
 
     /**
-     * Method for to show the pacakge's name
+     * Method for to show the package's name
      *
      * @return the pacakge's name
      */
@@ -110,7 +111,7 @@ public:
   };
 
   /**
-   * This method create the stock a pacakge.
+   * This method create the stock package.
    *
    * @param pkg is Package*
    */
@@ -126,7 +127,8 @@ public:
    * @param str is a path of package
    * @param index_cards is a index for package
    */
-  static Package* LoadPackage (const std::string&, unsigned int);
+  static Package* LoadPackage (const std::string&, unsigned int)
+    throw (Package::BadPackageFileException);
   /*    throw (Package::NotFoundPackageException, 
 	   Package::BadPackageFileException,
 	   RepeatPackageException);*/

@@ -30,6 +30,7 @@
 #include"dialog-creation-package.h"
 #include"main.h"
 #include"quiz.h"
+#include"dialog-alert-package.h"
 
 sigc::slot<bool> ETangoCardsApplet::slot_timeout;
 int ETangoCardsApplet::timeout_value = 15;
@@ -192,29 +193,42 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
   dialog.set_current_folder (Glib::get_home_dir ());
 
   //Show the dialog and wait for a user response:
-  int result = dialog.run();
-   
-  //Handle the response:
-  switch(result)
+  int loop = -1;
+  do 
     {
-    case(Gtk::RESPONSE_OK):
-      {
+      int result = dialog.run();
 
-	//Notice that this is a std::string, not a Glib::ustring.
-	std::string filename = dialog.get_filename();
-	ControlSystem *cs = new ControlSystem();
-	cs->LoadPackage (filename, 1);
-	break;
-      }
-    case(Gtk::RESPONSE_CANCEL):
-      {
-	break;
-      }
-    default:
-      {
-	break;
-      }
-    }
+      //Handle the response:
+      switch(result)
+	{
+	case(Gtk::RESPONSE_OK):
+	  {
+	
+	    //Notice that this is a std::string, not a Glib::ustring.
+	    std::string filename = dialog.get_filename();
+	    ControlSystem *cs = new ControlSystem();
+	    try
+	      {
+		cs->LoadPackage (filename, 1);
+	      }
+	    catch (Package::BadPackageFileException excep)
+	      {
+		DialogAlertPackage* pdialog_ = new DialogAlertPackage ();
+		loop = pdialog_->showDialogAlertPackage ();
+		delete pdialog_;
+	      }
+	    break;
+	  }
+	case(Gtk::RESPONSE_CANCEL):
+	  {
+	    break;
+	  }
+	default:
+	  {
+	    break;
+	  }
+	}
+    }while (loop);
 }
 
 void
