@@ -1,5 +1,5 @@
 
-SUBDIRS = src
+SUBDIRS = po src
 
 uidir   = $(datadir)/$(PACKAGE)/ui
 
@@ -22,6 +22,7 @@ serverdir = /usr/lib/bonobo/servers
 
 server_DATA = src/ETangoCards_Applet.server
 
-EXTRA_DIST = $(ui_DATA) \
+EXTRA_DIST = build-aux/config.rpath m4/ChangeLog  $(ui_DATA) \
 	     $(server_DATA)\
 	     $(icons_DATA)
+ACLOCAL_AMFLAGS = -I m4

@@ -2,6 +2,8 @@ dnl
 AC_INIT([etangocards], [0.0.2], [abrahanfer@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Werror])
+AM_GNU_GETTEXT_VERSION([0.17])
+AM_GNU_GETTEXT([external])
 
 GNOME_COMMON_INIT
 GNOME_MAINTAINER_MODE_DEFINES
@@ -30,7 +32,8 @@ AC_CONFIG_SRCDIR([src])
 
 AM_MAINTAINER_MODE
 
-AC_CONFIG_FILES([
+AC_CONFIG_FILES([ 
+	po/Makefile.in
 	Makefile
 	src/Makefile
 	])
