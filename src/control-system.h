@@ -1,7 +1,7 @@
 //-*-c++-*-
 /* control-system.h
  *
- * Copyright (C) by 2009 Abrahán Fernández Nieto
+ * Copyright (C) by 2009, 2010 Abrahán Fernández Nieto
  *
  * Email: <abrahanfer@gmail.com>
  *
@@ -67,7 +67,7 @@ public:
     /**
      * Method for to show the package's name
      *
-     * @return const std::string&
+     * @return the package's name
      */
     const std::string& packageName (void) const;
   private:

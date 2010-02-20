@@ -1,7 +1,7 @@
 //-*-c++-*-
 /* dialog-creation-package.h
  *
- * Copyright (C) 2009 Abrahán Fernández Nieto
+ * Copyright (C) 2009, 2010 Abrahán Fernández Nieto
  *
  * Email: <abrahanfer@gmail.com>
  *
@@ -42,7 +42,7 @@ class DialogCreationPackage {
 public:
 
   /**
-   * Default contructor
+   * Contructor for creation packages window.
    */
   DialogCreationPackage (void);
 
