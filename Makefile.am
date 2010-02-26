@@ -22,7 +22,12 @@ serverdir = /usr/lib/bonobo/servers
 
 server_DATA = src/ETangoCards_Applet.server
 
+INTLTOOL_FILES = intltool-extract.in \
+                 intltool-merge.in \
+                 intltool-update.in
+
 EXTRA_DIST = build-aux/config.rpath m4/ChangeLog  $(ui_DATA) \
 	     $(server_DATA)\
-	     $(icons_DATA)
+	     $(icons_DATA)\
+	     $(INTLTOOL_FILES)
 ACLOCAL_AMFLAGS = -I m4

@@ -60,7 +60,7 @@ am_etangocards_OBJECTS = etangocards-main.$(OBJEXT) \
 	etangocards-dialog-quiz-result.$(OBJEXT) \
 	etangocards-dialog-alert-package.$(OBJEXT)
 etangocards_OBJECTS = $(am_etangocards_OBJECTS)
-etangocards_LDADD = $(LDADD)
+etangocards_DEPENDENCIES =
 etangocards_LINK = $(CXXLD) $(etangocards_CXXFLAGS) $(CXXFLAGS) \
 	$(etangocards_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -82,22 +82,35 @@ ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ALL_LINGUAS = @ALL_LINGUAS@
 AMTAR = @AMTAR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+CCDEPMODE = @CCDEPMODE@
+CFLAGS = @CFLAGS@
+CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
+DATADIRNAME = @DATADIRNAME@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
+EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GMOFILES = @GMOFILES@
+GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 GTKMM_CFLAGS = @GTKMM_CFLAGS@
 GTKMM_LIBS = @GTKMM_LIBS@
 INSTALL = @INSTALL@
@@ -105,6 +118,12 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+INSTOBJEXT = @INSTOBJEXT@
+INTLLIBS = @INTLLIBS@
+INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
+INTLTOOL_MERGE = @INTLTOOL_MERGE@
+INTLTOOL_PERL = @INTLTOOL_PERL@
+INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
 LDFLAGS = @LDFLAGS@
 LIBBONOBO_CFLAGS = @LIBBONOBO_CFLAGS@
 LIBBONOBO_LIBS = @LIBBONOBO_LIBS@
@@ -118,6 +137,10 @@ LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+MSGFMT = @MSGFMT@
+MSGFMT_OPTS = @MSGFMT_OPTS@
+MSGMERGE = @MSGMERGE@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -128,14 +151,22 @@ PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
+POFILES = @POFILES@
+POSUB = @POSUB@
+PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
+PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
+PROGRAMNAME_LOCALEDIR = @PROGRAMNAME_LOCALEDIR@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USE_NLS = @USE_NLS@
 VERSION = @VERSION@
+XGETTEXT = @XGETTEXT@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -179,7 +210,8 @@ AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\" \
 	-DLIBDIR=\""$(libdir)"\" \
 	-DLOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-	-DPACKAGE=\""$(PACKAGE)"\"
+	-DPACKAGE=\""$(PACKAGE)"\"\
+	-DPROGRAMNAME_LOCALEDIR=\"${PROGRAMNAME_LOCALEDIR}\"
 
 etangocards_SOURCES = main.cpp main.h card.cpp card.h package.cpp \
 	package.h control-system.cpp control-system.h dialog-package.h \
@@ -191,7 +223,8 @@ etangocards_SOURCES = main.cpp main.h card.cpp card.h package.cpp \
 	dialog-quiz-answer.h dialog-quiz-answer.cpp\
 	dialog-quiz-back.h dialog-quiz-back.cpp\
 	dialog-quiz-result.h dialog-quiz-result.cpp\
-	dialog-alert-package.h dialog-alert-package.cpp
+	dialog-alert-package.h dialog-alert-package.cpp \
+	gettext.h
 
 etangocards_LDFLAGS = @LIBXMLPP_LIBS@ @GTKMM_LIBS@ @LIBBONOBO_LIBS@ \
 	@LIBPANELAPPLETMM_LIBS@ 
@@ -199,6 +232,7 @@ etangocards_LDFLAGS = @LIBXMLPP_LIBS@ @GTKMM_LIBS@ @LIBBONOBO_LIBS@ \
 etangocards_CXXFLAGS = @LIBXMLPP_CFLAGS@ @GTKMM_CFLAGS@ \
 	@LIBBONOBO_CFLAGS@ @LIBPANELAPPLETMM_CFLAGS@ -Wall -pedantic
 
+etangocards_LDADD = $(LIBINTL)
 all: all-am
 
 .SUFFIXES:

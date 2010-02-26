@@ -164,7 +164,7 @@ void
 ETangoCardsApplet::applet_load_package (BonoboUIComponent *, 
 					void *, const char *)
 {
-  Gtk::FileChooserDialog dialog("Please choose a package",
+  Gtk::FileChooserDialog dialog(_("Please choose a package"),
 				Gtk::FILE_CHOOSER_ACTION_OPEN);
   
 
@@ -175,13 +175,13 @@ ETangoCardsApplet::applet_load_package (BonoboUIComponent *,
   //Add filters, so that only certain file types can be selected:
 
   Gtk::FileFilter filter_xml;
-  filter_xml.set_name("Xml files");
+  filter_xml.set_name(_("Xml files"));
   filter_xml.add_mime_type("application/xml");
   dialog.add_filter(filter_xml);
 
 
   Gtk::FileFilter filter_any;
-  filter_any.set_name("Any files");
+  filter_any.set_name(_("Any files"));
   filter_any.add_pattern("*");
   dialog.add_filter(filter_any);
 
@@ -246,7 +246,7 @@ void
 ETangoCardsApplet::applet_quiz_mode (BonoboUIComponent *, 
 				     void *, const char *)
 {
-  Gtk::FileChooserDialog dialog("Please choose a package",
+  Gtk::FileChooserDialog dialog(_("Please choose a package"),
 				Gtk::FILE_CHOOSER_ACTION_OPEN);
   
 
@@ -257,13 +257,13 @@ ETangoCardsApplet::applet_quiz_mode (BonoboUIComponent *,
   //Add filters, so that only certain file types can be selected:
 
   Gtk::FileFilter filter_xml;
-  filter_xml.set_name("Xml files");
+  filter_xml.set_name(_("Xml files"));
   filter_xml.add_mime_type("application/xml");
   dialog.add_filter(filter_xml);
 
 
   Gtk::FileFilter filter_any;
-  filter_any.set_name("Any files");
+  filter_any.set_name(_("Any files"));
   filter_any.add_pattern("*");
   dialog.add_filter(filter_any);
 

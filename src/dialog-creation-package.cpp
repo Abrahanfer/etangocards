@@ -1,6 +1,6 @@
 /* dialog-creation-package.cpp
  *
- * Copyright (C) 2009 Abrahán Fernández Nieto
+ * Copyright (C) 2009, 2010 Abrahán Fernández Nieto
  *
  * Email: <abrahanfer@gmail.com>
  *

@@ -22,6 +22,8 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include <glibmm/i18n.h>
+
 #define UI_DIR  DATADIR G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S "ui"
 
 #define FILE_UI_DIALOG_PACKAGE UI_DIR G_DIR_SEPARATOR_S "dialog_package.ui"
